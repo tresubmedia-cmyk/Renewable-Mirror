@@ -175,7 +175,7 @@
 
 
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowUpRight,
@@ -197,6 +197,9 @@ const moreLinks = [
   { name: "Editorial Calendar", path: "/editorial-calendar" },
   { name: "Event Calendar", path: "/event-calendar" },
 ];
+
+const navLinkClass = ({ isActive }) =>
+  `rm-nav-link ${isActive ? "active" : ""}`;
 
 export default function Navbar() {
   const [newsOpen, setNewsOpen] = useState(false);
@@ -228,7 +231,7 @@ export default function Navbar() {
     };
   }, []);
 
-  // RESET SCROLL AND CLOSE MENUS ON PAGE CHANGE
+  // RESET MENUS ON PAGE CHANGE
   useEffect(() => {
     setNewsOpen(false);
     setMoreOpen(false);
@@ -238,6 +241,12 @@ export default function Navbar() {
   }, [location.pathname]);
 
   const isSolid = scrolled || !isHomePage;
+
+  const isNewsActive = location.pathname.startsWith("/news");
+
+  const isMoreActive = moreLinks.some((item) =>
+    location.pathname.startsWith(item.path)
+  );
 
   const closeMobileMenu = () => {
     setMobileOpen(false);
@@ -265,9 +274,9 @@ export default function Navbar() {
         <nav className="rm-desktop-nav">
 
           {/* HOME */}
-          <Link to="/" className="rm-nav-link">
+          <NavLink to="/" end className={navLinkClass}>
             Home
-          </Link>
+          </NavLink>
 
           {/* NEWS MENU */}
           <div
@@ -279,18 +288,20 @@ export default function Navbar() {
             onMouseLeave={() => setNewsOpen(false)}
           >
             <div className="flex items-center">
-              {/* NEWS MAIN PAGE */}
-              <Link
+              <NavLink
                 to="/news"
-                className="rm-nav-link"
+                className={() =>
+                  `rm-nav-link ${isNewsActive ? "active" : ""}`
+                }
               >
                 News
-              </Link>
+              </NavLink>
 
-              {/* DROPDOWN TOGGLE */}
               <button
                 type="button"
-                className="rm-nav-link rm-news-trigger"
+                className={`rm-nav-link rm-news-trigger ${
+                  isNewsActive || newsOpen ? "active" : ""
+                }`}
                 aria-label="Toggle news dropdown"
                 aria-expanded={newsOpen}
                 onClick={() => {
@@ -311,9 +322,9 @@ export default function Navbar() {
               {newsOpen && (
                 <motion.div
                   className="rm-dropdown"
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 12 }}
+                  exit={{ opacity: 0, y: 10 }}
                   transition={{ duration: 0.2 }}
                 >
                   <span className="rm-dropdown-heading">
@@ -321,14 +332,14 @@ export default function Navbar() {
                   </span>
 
                   {newsCategories.map((item) => (
-                    <Link
+                    <NavLink
                       to={item.path}
                       key={item.path}
                       onClick={() => setNewsOpen(false)}
                     >
                       {item.name}
                       <ArrowUpRight size={14} />
-                    </Link>
+                    </NavLink>
                   ))}
                 </motion.div>
               )}
@@ -336,19 +347,19 @@ export default function Navbar() {
           </div>
 
           {/* MAGAZINE */}
-          <Link to="/magazine" className="rm-nav-link">
+          <NavLink to="/magazine" className={navLinkClass}>
             Magazine
-          </Link>
+          </NavLink>
 
           {/* ABOUT */}
-          <Link to="/about" className="rm-nav-link">
+          <NavLink to="/about" className={navLinkClass}>
             About Us
-          </Link>
+          </NavLink>
 
           {/* GALLERY */}
-          <Link to="/gallery" className="rm-nav-link">
+          <NavLink to="/gallery" className={navLinkClass}>
             Gallery
-          </Link>
+          </NavLink>
 
           {/* MORE MENU */}
           <div
@@ -362,7 +373,7 @@ export default function Navbar() {
             <button
               type="button"
               className={`rm-nav-link rm-news-trigger ${
-                moreOpen ? "active" : ""
+                moreOpen || isMoreActive ? "active" : ""
               }`}
               onClick={() => {
                 setMoreOpen(!moreOpen);
@@ -384,9 +395,9 @@ export default function Navbar() {
               {moreOpen && (
                 <motion.div
                   className="rm-dropdown"
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 12 }}
+                  exit={{ opacity: 0, y: 10 }}
                   transition={{ duration: 0.2 }}
                 >
                   <span className="rm-dropdown-heading">
@@ -394,28 +405,33 @@ export default function Navbar() {
                   </span>
 
                   {moreLinks.map((item) => (
-                    <Link
+                    <NavLink
                       to={item.path}
                       key={item.path}
                       onClick={() => setMoreOpen(false)}
                     >
                       {item.name}
                       <ArrowUpRight size={14} />
-                    </Link>
+                    </NavLink>
                   ))}
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          {/* CONTACT */}
-          <Link to="/contact" className="rm-contact-btn">
-            Contact Us
+     
+{/* CONTACT */}
+<Link
+  to="/contact"
+  className="!inline-flex !items-center !justify-center !gap-2.5 !rounded-full !bg-[#f39200] !px-6 !py-3 !text-[12px] !font-bold !text-white !shadow-none !transition-all !duration-300 hover:!bg-[#df8200] hover:!-translate-y-0.5"
+>
+  Contact Us
 
-            <span>
-              <ArrowUpRight size={16} />
-            </span>
-          </Link>
+  <span className="!flex !h-auto !w-auto !items-center !justify-center !rounded-none !bg-transparent !p-0 !text-white">
+    <ArrowUpRight size={16} />
+  </span>
+</Link>
+
         </nav>
 
         {/* MOBILE MENU BUTTON */}
@@ -424,8 +440,9 @@ export default function Navbar() {
           className="rm-mobile-toggle"
           onClick={() => setMobileOpen(true)}
           aria-label="Open navigation menu"
+          aria-expanded={mobileOpen}
         >
-          <Menu size={25} />
+          <Menu size={24} />
         </button>
       </div>
 
@@ -450,10 +467,12 @@ export default function Navbar() {
 
               {/* DRAWER HEADER */}
               <div className="rm-drawer-header">
-                <img
-                  src="/images/renewable-mirror-logo.png"
-                  alt="Renewable Mirror"
-                />
+                <Link to="/" onClick={closeMobileMenu}>
+                  <img
+                    src="/images/renewable-mirror-logo.png"
+                    alt="Renewable Mirror"
+                  />
+                </Link>
 
                 <button
                   type="button"
@@ -465,21 +484,21 @@ export default function Navbar() {
               </div>
 
               {/* HOME */}
-              <Link to="/" onClick={closeMobileMenu}>
+              <NavLink to="/" end onClick={closeMobileMenu}>
                 Home
                 <ArrowUpRight size={16} />
-              </Link>
+              </NavLink>
 
               {/* MOBILE NEWS */}
-              <div className="flex flex-col">
+              <div className="rm-mobile-group">
                 <div className="flex items-center justify-between">
-                  <Link
+                  <NavLink
                     to="/news"
                     onClick={closeMobileMenu}
                     className="!border-0 !py-3"
                   >
                     News
-                  </Link>
+                  </NavLink>
 
                   <button
                     type="button"
@@ -488,6 +507,7 @@ export default function Navbar() {
                       setMobileMoreOpen(false);
                     }}
                     aria-label="Toggle news submenu"
+                    aria-expanded={mobileNewsOpen}
                   >
                     <ChevronDown
                       size={17}
@@ -506,17 +526,17 @@ export default function Navbar() {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <Link
+                      <NavLink
                         to="/news"
                         className="!border-0 !py-2 !pl-5 !text-sm"
                         onClick={closeMobileMenu}
                       >
                         All News
                         <ArrowUpRight size={14} />
-                      </Link>
+                      </NavLink>
 
                       {newsCategories.map((item) => (
-                        <Link
+                        <NavLink
                           key={item.path}
                           to={item.path}
                           className="!border-0 !py-2 !pl-5 !text-sm"
@@ -524,7 +544,7 @@ export default function Navbar() {
                         >
                           {item.name}
                           <ArrowUpRight size={14} />
-                        </Link>
+                        </NavLink>
                       ))}
                     </motion.div>
                   )}
@@ -532,25 +552,25 @@ export default function Navbar() {
               </div>
 
               {/* MAGAZINE */}
-              <Link to="/magazine" onClick={closeMobileMenu}>
+              <NavLink to="/magazine" onClick={closeMobileMenu}>
                 Magazine
                 <ArrowUpRight size={16} />
-              </Link>
+              </NavLink>
 
               {/* ABOUT */}
-              <Link to="/about" onClick={closeMobileMenu}>
+              <NavLink to="/about" onClick={closeMobileMenu}>
                 About Us
                 <ArrowUpRight size={16} />
-              </Link>
+              </NavLink>
 
               {/* GALLERY */}
-              <Link to="/gallery" onClick={closeMobileMenu}>
+              <NavLink to="/gallery" onClick={closeMobileMenu}>
                 Gallery
                 <ArrowUpRight size={16} />
-              </Link>
+              </NavLink>
 
               {/* MOBILE MORE */}
-              <div className="flex flex-col">
+              <div className="rm-mobile-group">
                 <button
                   type="button"
                   onClick={() => {
@@ -579,7 +599,7 @@ export default function Navbar() {
                       className="overflow-hidden"
                     >
                       {moreLinks.map((item) => (
-                        <Link
+                        <NavLink
                           key={item.path}
                           to={item.path}
                           className="!border-0 !py-2 !pl-5 !text-sm"
@@ -587,22 +607,25 @@ export default function Navbar() {
                         >
                           {item.name}
                           <ArrowUpRight size={14} />
-                        </Link>
+                        </NavLink>
                       ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              {/* CONTACT */}
-              <Link
-                to="/contact"
-                className="rm-mobile-contact"
-                onClick={closeMobileMenu}
-              >
-                Contact Us
-                <ArrowUpRight size={17} />
-              </Link>
+       
+{/* CONTACT */}
+<Link
+  to="/contact"
+  className="!inline-flex !items-center !justify-center !gap-2.5 !rounded-full !bg-[#f39200] !px-6 !py-3 !text-[12px] !font-bold !text-white !shadow-none !transition-all !duration-300 hover:!bg-[#df8200] hover:!-translate-y-0.5"
+>
+  Contact Us
+
+  <span className="!flex !h-auto !w-auto !items-center !justify-center !rounded-none !bg-transparent !p-0 !text-white">
+    <ArrowUpRight size={16} />
+  </span>
+</Link>
 
             </motion.div>
           </motion.div>

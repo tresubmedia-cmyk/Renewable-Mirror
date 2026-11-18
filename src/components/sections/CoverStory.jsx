@@ -8,8 +8,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// DUMMY DATA: Future mein WordPress API se Cover Stories aayengi.
-// Fields: id, category, date, title, image, slug
+const COVER_STORY_ROUTE = "/cover-story";
 
 const defaultStories = [
   {
@@ -100,36 +99,40 @@ export default function CoverStory({ stories = defaultStories }) {
         {/* SECTION HEADER */}
         <motion.div
           {...headerMotion}
-          className="mb-9 flex flex-col justify-between gap-5 border-b border-[#e9ede6] pb-7 sm:flex-row sm:items-end"
+          className="mb-9 flex flex-col justify-between gap-5 border-b border-[#E5E7EB] pb-7 sm:flex-row sm:items-end"
         >
           <div>
             <div className="mb-4 flex items-center gap-3">
-              <span className="h-[2px] w-9 bg-[#B99A4B]" />
+              <span className="h-[2px] w-9 bg-[#F5A000]" />
 
-              <span className="text-[12px] font-semibold tracking-[0.04em] text-[#667C65]">
+              <span className="text-[12px] font-semibold tracking-[0.04em] text-[#B8860B]">
                 Stories that matter
               </span>
             </div>
 
-            <h2 className="font-display text-[34px] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#17291F] sm:text-[42px] lg:text-[50px]">
-              Cover <span className="font-semibold  text-[#A28E5B]">Stories.</span>
-            </h2>
+            <p className="font-display text-[24px] font-bold leading-[1.1] tracking-[-0.04em] text-[#111827] sm:text-[32px] lg:text-[40px]">
+              Cover{" "}
+              <span className="font-semibold text-[#B8860B]">
+                Stories.
+              </span>
+            </p>
 
-            <p className="mt-4 max-w-xl text-[14px] leading-7 text-[#6F7B6F]">
+            <p className="mt-4 max-w-xl text-[14px] leading-7 text-[#6B7280]">
               In-depth stories, industry perspectives and important
               developments shaping the renewable energy landscape.
             </p>
           </div>
 
+          {/* EXPLORE ALL STORIES */}
           <Link
-            to="/cover-stories"
-            className="group inline-flex w-fit items-center gap-4 rounded-full border border-[#dce3da] bg-white py-2 pl-6 pr-2 transition-all duration-300 hover:border-[#172D21] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B99A4B]"
+            to={COVER_STORY_ROUTE}
+            className="group inline-flex w-fit items-center gap-4 rounded-full border border-gray-200 bg-white py-2 pl-6 pr-2 transition-all duration-300 hover:border-[#F5A000] hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5A000]"
           >
-            <span className="text-[13px] font-semibold text-[#243C2D]">
+            <span className="text-[13px] font-semibold text-[#111827]">
               Explore all stories
             </span>
 
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#172D21] text-white transition-colors duration-300 group-hover:bg-[#B99A4B]">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F5A000] text-[#111827] transition-colors duration-300 group-hover:bg-[#E6B94A]">
               <ArrowUpRight
                 size={18}
                 className="transition-transform duration-300 group-hover:rotate-45"
@@ -152,17 +155,17 @@ export default function CoverStory({ stories = defaultStories }) {
               variants={cardVariants}
               className={`group min-w-0 ${
                 index !== 0
-                  ? "sm:border-l sm:border-[#edf0eb] sm:pl-4 lg:pl-5"
+                  ? "sm:border-l sm:border-[#E5E7EB] sm:pl-4 lg:pl-5"
                   : ""
               }`}
             >
               <Link
-                to={story.slug || "/cover-stories"}
-                className="flex h-full flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B99A4B]"
+                to={story.slug || COVER_STORY_ROUTE}
+                className="flex h-full flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5A000]"
               >
 
                 {/* STORY IMAGE */}
-                <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#E9EDE7]">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#F8FAFC]">
                   <img
                     src={story.image}
                     alt={story.title}
@@ -170,38 +173,37 @@ export default function CoverStory({ stories = defaultStories }) {
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#10291f]/45 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/45 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
 
-                  <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#172D21] transition-all duration-300 group-hover:rotate-45 group-hover:bg-[#D8BD76]">
+                  <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#111827] transition-all duration-300 group-hover:rotate-45 group-hover:bg-[#F5A000]">
                     <ArrowUpRight size={18} />
                   </span>
                 </div>
 
                 {/* STORY DETAILS */}
                 <div className="flex flex-1 flex-col pt-5">
-
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <span className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#9A7E34]">
+                    <span className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#B8860B]">
                       {story.category}
                     </span>
                   </div>
 
-                  <h3 className="mt-3 line-clamp-4 font-display text-[17px] font-bold leading-[1.5] tracking-[-0.02em] text-[#17291F]">
+                  <h3 className="mt-3 line-clamp-4 font-display text-[17px] font-bold leading-[1.5] tracking-[-0.02em] text-[#111827]">
                     {story.title}
                   </h3>
 
                   <div className="mt-auto pt-5">
-                    <div className="h-px w-full bg-[#e6eae3] transition-colors duration-500 group-hover:bg-[#B99A4B]" />
+                    <div className="h-px w-full bg-[#E5E7EB] transition-colors duration-500 group-hover:bg-[#F5A000]" />
 
                     <div className="mt-4 flex items-center justify-between gap-2">
-                      <span className="flex items-center gap-1.5 text-[10px] text-[#7D887D]">
+                      <span className="flex items-center gap-1.5 text-[10px] text-[#6B7280]">
                         <CalendarDays size={13} />
                         {story.date}
                       </span>
 
                       <ArrowRight
                         size={16}
-                        className="shrink-0 text-[#B99A4B] transition-transform duration-300 group-hover:translate-x-1.5"
+                        className="shrink-0 text-[#B8860B] transition-transform duration-300 group-hover:translate-x-1.5"
                       />
                     </div>
                   </div>
@@ -221,8 +223,8 @@ export default function CoverStory({ stories = defaultStories }) {
           className="mt-12 flex justify-center"
         >
           <Link
-            to="/cover-stories"
-            className="group inline-flex items-center gap-3 rounded-full border border-[#e1e7df] px-7 py-3.5 text-[12px] font-bold text-[#263D2D] transition-all duration-300 hover:border-[#172D21] hover:bg-[#172D21] hover:text-white"
+            to={COVER_STORY_ROUTE}
+            className="group inline-flex items-center gap-3 rounded-full border border-gray-200 bg-white px-7 py-3.5 text-[12px] font-bold text-[#111827] transition-all duration-300 hover:border-[#F5A000] hover:bg-[#111827] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5A000]"
           >
             <BookOpen size={15} />
             Show More

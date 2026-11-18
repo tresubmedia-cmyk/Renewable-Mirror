@@ -1,5 +1,5 @@
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   BookOpen,
   FileText,
@@ -51,7 +51,7 @@ const containerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.14,
+      staggerChildren: 0.12,
     },
   },
 };
@@ -59,7 +59,7 @@ const containerVariants = {
 const cardVariants = {
   hidden: {
     opacity: 0,
-    y: 45,
+    y: 35,
   },
   visible: {
     opacity: 1,
@@ -72,34 +72,37 @@ const cardVariants = {
 };
 
 export default function ResourcesSection() {
+  const reduce = useReducedMotion();
+
   return (
     <section
       id="resources-content"
-      className="relative overflow-hidden bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-32"
+      className="relative overflow-hidden bg-white px-5 py-16 sm:px-8 lg:px-14 lg:py-20"
     >
       <div className="mx-auto max-w-7xl">
 
         {/* HEADER */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={reduce ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7 }}
-          className="mb-14 flex flex-col justify-between gap-7 lg:flex-row lg:items-end"
+          className="mb-10 flex flex-col justify-between gap-5 lg:flex-row lg:items-end"
         >
           <div>
-            <div className="mb-5 flex items-center gap-3">
-              <span className="h-[2px] w-9 bg-[#B69A55]" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#A58B4D]">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-[2px] w-8 bg-[#F5A000]" />
+
+              <span className="text-[10px] font-bold uppercase tracking-[0.23em] text-[#B8860B]">
                 Explore Knowledge
               </span>
             </div>
 
-            <p className="text-xl font-bold leading-relaxed text-[#10291D] sm:text-2xl lg:text-3xl">
+            <h2 className="text-[22px] font-bold leading-relaxed tracking-tight text-[#111827] sm:text-[26px] lg:text-[29px]">
               Knowledge that moves you forward.
-            </p>
+            </h2>
 
-            <p className="mt-6 max-w-xl text-sm leading-8 text-[#788278] sm:text-base">
+            <p className="mt-3 max-w-xl text-[13px] leading-7 text-[#6B7280] sm:text-sm">
               Explore industry reports, publications and essential
               resources to understand the evolving renewable
               energy landscape.
@@ -113,43 +116,56 @@ export default function ResourcesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.12 }}
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {resources.map((item) => {
+            const Icon = item.icon;
+
             return (
               <motion.a
                 key={item.title}
                 href={item.link}
                 variants={cardVariants}
-                whileHover={{ y: -9 }}
-                className="group relative isolate flex min-h-[340px] flex-col overflow-hidden rounded-xl border border-[#D9BC70]/30 bg-[#09251A] p-7 transition-all duration-500 hover:border-[#D9BC70] hover:shadow-[0_22px_50px_rgba(9,37,26,0.18)] sm:p-8"
+                whileHover={reduce ? undefined : { y: -6 }}
+                className="group relative isolate flex min-h-[290px] flex-col overflow-hidden rounded-xl border border-[#F5A000]/20 bg-[#111827] p-6 transition-all duration-500 hover:border-[#F5A000]/60 hover:shadow-[0_18px_40px_rgba(17,24,39,0.15)] sm:p-6"
               >
-                {/* LEFT TO RIGHT HOVER BACKGROUND */}
-                <div className="pointer-events-none absolute inset-0 -z-10 -translate-x-full bg-gradient-to-r from-[#173D2D] via-[#24543D] to-[#A58B4D] transition-transform duration-700 ease-out group-hover:translate-x-0" />
+                {/* GOLD HOVER BACKGROUND */}
+                <div className="pointer-events-none absolute inset-0 -z-10 -translate-x-full bg-gradient-to-r from-[#1F2937] via-[#263244] to-[#8A6A25] transition-transform duration-700 ease-out group-hover:translate-x-0" />
+
+                {/* TOP */}
+                <div className="flex items-center justify-between">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#F5A000]/25 bg-[#F5A000]/[0.08] text-[#E6B94A] transition-all duration-500 group-hover:border-white/30 group-hover:bg-white/10">
+                    <Icon size={19} strokeWidth={1.7} />
+                  </span>
+
+                  <span className="font-serif text-[13px] text-[#E6B94A]/75">
+                    {item.number}
+                  </span>
+                </div>
 
                 {/* CONTENT */}
-                <div className="mt-auto pt-12">
-                  <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#D9BC70] transition-colors duration-500 group-hover:text-white">
+                <div className="mt-auto pt-9">
+                  <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#E6B94A] transition-colors duration-500 group-hover:text-white">
                     {item.category}
                   </span>
 
-                  <h3 className="mt-4 text-2xl font-bold leading-snug tracking-tight text-white">
+                  <h3 className="mt-3 text-[19px] font-bold leading-snug tracking-tight text-white">
                     {item.title}
                   </h3>
 
-                  <p className="mt-4 text-xs leading-7 text-white/60 transition-colors duration-500 group-hover:text-white/85">
+                  <p className="mt-3 text-[12px] leading-[1.8] text-white/60 transition-colors duration-500 group-hover:text-white/85">
                     {item.description}
                   </p>
                 </div>
 
                 {/* BOTTOM */}
-                <div className="mt-7 flex items-center justify-between border-t border-white/15 pt-5">
-                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/50 transition-colors duration-500 group-hover:text-white">
+                <div className="mt-5 flex items-center justify-between border-t border-white/15 pt-4">
+                  <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-white/50 transition-colors duration-500 group-hover:text-white">
                     Explore Resource
                   </span>
 
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D9BC70]/40 text-[#D9BC70] transition-all duration-500 group-hover:rotate-45 group-hover:border-white group-hover:bg-white group-hover:text-[#09251A]">
-                    <ArrowUpRight size={18} />
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#F5A000]/40 text-[#E6B94A] transition-all duration-500 group-hover:rotate-45 group-hover:border-white group-hover:bg-[#F5A000] group-hover:text-[#111827]">
+                    <ArrowUpRight size={16} />
                   </span>
                 </div>
               </motion.a>
@@ -159,17 +175,17 @@ export default function ResourcesSection() {
 
         {/* FOOTER */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={reduce ? false : { opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[#E8EBE5] pt-7"
+          className="mt-9 flex flex-wrap items-center justify-between gap-4 border-t border-[#E5E7EB] pt-6"
         >
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#879187]">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.17em] text-[#9CA3AF]">
             Renewable Mirror — Knowledge Centre
           </p>
 
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#A58B4D]">
+          <p className="text-[9px] font-bold uppercase tracking-[0.17em] text-[#B8860B]">
             Research. Discover. Learn.
           </p>
         </motion.div>

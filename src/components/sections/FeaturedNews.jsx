@@ -1,3 +1,4 @@
+
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, CalendarDays } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -45,17 +46,14 @@ const defaultStories = [
 
 const EASE = [0.22, 1, 0.36, 1];
 
-// Featured news yahan aayegi. API/backend se "featured" stories ka array
-// <FeaturedNews stories={data} /> me pass karo. Har story me:
-// { id, category, date, title, description?, image, link? }
-// Pehli story lead banti hai, agle 3 side me aate hain.
 export default function FeaturedNews({ stories = defaultStories }) {
   const reduce = useReducedMotion();
+
   if (!stories || stories.length === 0) return null;
+
   const [lead, ...restAll] = stories;
   const rest = restAll.slice(0, 3);
 
-  // One orchestrated reveal: header first, then the lead story, then the list.
   const reveal = (delay = 0) =>
     reduce
       ? {}
@@ -68,7 +66,12 @@ export default function FeaturedNews({ stories = defaultStories }) {
 
   const listVariants = {
     hidden: {},
-    visible: { transition: { staggerChildren: reduce ? 0 : 0.14, delayChildren: 0.25 } },
+    visible: {
+      transition: {
+        staggerChildren: reduce ? 0 : 0.14,
+        delayChildren: 0.25,
+      },
+    },
   };
 
   const itemVariants = {
@@ -81,59 +84,52 @@ export default function FeaturedNews({ stories = defaultStories }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#0A1A12] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-      {/* soft ambient glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#1F4A33]/35 blur-[120px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-48 -right-32 h-[480px] w-[480px] rounded-full bg-[#B99A4B]/10 blur-[130px]"
-      />
+    <section className="relative overflow-hidden bg-[#111827] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
 
       <div className="relative mx-auto max-w-[1400px]">
+
         {/* HEADER */}
         <motion.div
           {...reveal(0)}
-          className="mb-10 flex flex-col justify-between gap-6 border-b border-white/10 pb-8 md:mb-12 md:flex-row md:items-end"
+          className="mb-10 flex flex-col justify-between gap-6 border-b border-white/15 pb-8 md:mb-12 md:flex-row md:items-end"
         >
           <div className="max-w-2xl">
             <div className="mb-4 flex items-center gap-3">
-              <span className="h-[2px] w-9 bg-[#B99A4B]" />
-              <span className="text-[12px] font-semibold tracking-[0.04em] text-[#8FB59A]">
+              <span className="h-[2px] w-9 bg-[#F5A000]" />
+              <span className="text-[12px] font-semibold tracking-[0.04em] text-[#E6B94A]">
                 Renewable Mirror
               </span>
             </div>
 
-            <h2 className="font-display text-[34px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:text-[42px] lg:text-[50px]">
-              Stories that matter
-            </h2>
+            <p className="font-display text-[24px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:text-[32px] lg:text-[40px]">
+              Stories That <span className="text-[#F5A000]">Matter.</span>
+            </p>
 
-            <p className="mt-4 max-w-xl text-[14px] leading-7 text-[#9DB2A3]">
+            <p className="mt-4 max-w-xl text-[14px] leading-7 text-white/75">
               A closer look at the ideas, innovations and industry developments
               moving the clean energy world forward.
             </p>
           </div>
+<Link
+  to="/news"
+  className="group inline-flex w-fit items-center gap-4 rounded-full border border-gray-300 bg-white py-2 pl-6 pr-2 transition-all duration-300 hover:border-[#F5A000] hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5A000]"
+>
+  <span className="text-[13px] font-semibold text-[#111827]">
+    Explore all stories
+  </span>
 
-          <Link
-            to="/news"
-            className="group inline-flex w-fit items-center gap-4 rounded-full border border-white/15 bg-white/[0.03] py-2 pl-6 pr-2 transition-all duration-300 hover:border-[#D8BD76]/70 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B99A4B]"
-          >
-            <span className="text-[13px] font-semibold text-white">
-              Explore all stories
-            </span>
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D8BD76] text-[#0A1A12] transition-colors duration-300 group-hover:bg-white">
-              <ArrowUpRight
-                size={18}
-                className="transition-transform duration-300 group-hover:rotate-45"
-              />
-            </span>
-          </Link>
+  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F5A000] text-[#111827] transition-colors duration-300 group-hover:bg-[#E6B94A]">
+    <ArrowUpRight
+      size={18}
+      className="transition-transform duration-300 group-hover:rotate-45"
+    />
+  </span>
+</Link>
         </motion.div>
 
         {/* CONTENT GRID */}
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
+
           {/* LEAD STORY */}
           <motion.article
             {...(reduce
@@ -148,41 +144,44 @@ export default function FeaturedNews({ stories = defaultStories }) {
           >
             <Link
               to={lead.link || "/news"}
-              className="relative flex min-h-[440px] h-full overflow-hidden rounded-2xl border border-white/10 bg-[#10251B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B99A4B] sm:min-h-[520px]"
+              className="flex h-full flex-col overflow-hidden rounded-2xl bg-white ring-2 ring-transparent transition-all duration-500 hover:ring-[#F5A000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6B94A]"
             >
-              <img
-                src={lead.image}
-                alt={lead.title}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
-              />
+              <div className="relative min-h-[260px] flex-1 overflow-hidden bg-[#263244] sm:min-h-[320px]">
+                <img
+                  src={lead.image}
+                  alt={lead.title}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.06]"
+                />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1B13]/90 via-[#0B1B13]/35 to-transparent" />
+                <span className="absolute left-5 top-5 rounded-full bg-[#F5A000] px-3.5 py-1.5 text-[11.5px] font-semibold text-[#111827]">
+                  {lead.category}
+                </span>
+              </div>
 
-              <div className="relative mt-auto w-full p-6 sm:p-9 lg:p-10">
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px] font-medium text-white/80">
-                  <span className="text-[#E2C987]">{lead.category}</span>
-                  <span className="h-3 w-px bg-white/30" />
-                  <span className="flex items-center gap-2">
-                    <CalendarDays size={13} />
-                    {lead.date}
-                  </span>
-                </div>
+              <div className="border-t-4 border-[#F5A000] p-6 sm:p-8">
+                <span className="flex items-center gap-2 text-[12px] font-medium text-slate-500">
+                  <CalendarDays size={13} className="text-[#B8860B]" />
+                  {lead.date}
+                </span>
 
-                <h3 className="mt-4 max-w-2xl font-display text-[24px] font-bold leading-[1.3] tracking-[-0.03em] text-white sm:text-[30px] lg:text-[34px]">
+                <h3 className="mt-3 max-w-2xl font-display text-[22px] font-bold leading-[1.3] tracking-[-0.03em] text-[#111827] sm:text-[28px]">
                   {lead.title}
                 </h3>
 
-                <p className="mt-4 max-w-xl text-[14px] leading-7 text-white/75">
-                  {lead.description}
-                </p>
+                {lead.description && (
+                  <p className="mt-3 max-w-xl text-[14px] leading-7 text-slate-600">
+                    {lead.description}
+                  </p>
+                )}
 
-                <div className="mt-7 inline-flex items-center gap-3 text-[13px] font-semibold text-white">
+                <div className="mt-6 inline-flex items-center gap-3 text-[13px] font-semibold text-[#111827]">
                   <span className="relative">
                     Read story
-                    <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-[0.3] bg-[#E2C987] transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                    <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-[0.3] bg-[#F5A000] transition-transform duration-500 ease-out group-hover:scale-x-100" />
                   </span>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#172D21] transition-all duration-500 group-hover:rotate-45 group-hover:bg-[#E2C987]">
+
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#111827] text-white transition-all duration-500 group-hover:rotate-45 group-hover:bg-[#F5A000] group-hover:text-[#111827]">
                     <ArrowUpRight size={18} />
                   </span>
                 </div>
@@ -206,9 +205,9 @@ export default function FeaturedNews({ stories = defaultStories }) {
               >
                 <Link
                   to={story.link || "/news"}
-                  className="flex h-full items-stretch gap-4 rounded-2xl border border-white/10 bg-[#0F2318] p-3 transition-all duration-500 ease-out hover:scale-[1.02] hover:border-[#D8BD76]/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B99A4B] sm:gap-5"
+                  className="flex h-full items-stretch gap-4 rounded-2xl bg-white p-3 ring-2 ring-transparent transition-all duration-500 ease-out hover:scale-[1.02] hover:ring-[#F5A000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6B94A] sm:gap-5"
                 >
-                  <div className="relative aspect-square w-28 shrink-0 overflow-hidden rounded-xl bg-[#16301F] sm:w-40 lg:w-36 xl:w-40">
+                  <div className="relative aspect-square w-28 shrink-0 overflow-hidden rounded-xl bg-[#263244] sm:w-40 lg:w-36 xl:w-40">
                     <img
                       src={story.image}
                       alt={story.title}
@@ -219,20 +218,23 @@ export default function FeaturedNews({ stories = defaultStories }) {
 
                   <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pr-2">
                     <div>
-                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-medium text-[#81978A]">
-                        <span className="text-[#D8BD76]">{story.category}</span>
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-medium text-slate-500">
+                        <span className="font-semibold text-[#B8860B]">
+                          {story.category}
+                        </span>
+
                         <span className="flex items-center gap-1.5">
                           <CalendarDays size={12} />
                           {story.date}
                         </span>
                       </div>
 
-                      <h3 className="mt-3 line-clamp-3 font-display text-[15px] font-bold leading-[1.5] tracking-[-0.02em] text-white transition-colors duration-300 group-hover:text-[#E9D79F] sm:text-[16px]">
+                      <h3 className="mt-3 line-clamp-3 font-display text-[15px] font-bold leading-[1.5] tracking-[-0.02em] text-[#111827] transition-colors duration-300 group-hover:text-[#B8860B] sm:text-[16px]">
                         {story.title}
                       </h3>
                     </div>
 
-                    <div className="mt-3 flex items-center gap-2 text-[12px] font-semibold text-[#8FB59A] transition-colors duration-300 group-hover:text-[#D8BD76]">
+                    <div className="mt-3 flex items-center gap-2 text-[12px] font-semibold text-[#111827] transition-colors duration-300 group-hover:text-[#B8860B]">
                       Read story
                       <ArrowUpRight
                         size={15}

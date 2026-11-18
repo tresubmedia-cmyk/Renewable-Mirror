@@ -141,9 +141,9 @@ export default function Interviews({ interviews = defaultInterviews }) {
               </span>
             </div>
 
-            <h2 className="font-display text-[34px] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#17291F] sm:text-[42px] lg:text-[50px]">
+            <p className="font-display text-[24px] font-bold leading-[1.1] tracking-[-0.04em] text-[#17291F] sm:text-[32px] lg:text-[40px]">
               Industry interviews
-            </h2>
+            </p>
 
             <p className="mt-4 max-w-xl text-[14px] leading-7 text-[#6F7B6F]">
               Conversations with the leaders, innovators and decision-makers
@@ -151,20 +151,21 @@ export default function Interviews({ interviews = defaultInterviews }) {
             </p>
           </div>
 
-          <Link
-            to="/interviews"
-            className="group inline-flex w-fit items-center gap-4 rounded-full border border-[#dce3da] bg-white py-2 pl-6 pr-2 transition-all duration-300 hover:border-[#172D21] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B99A4B]"
-          >
-            <span className="text-[13px] font-semibold text-[#243C2D]">
-              Explore all interviews
-            </span>
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#172D21] text-white transition-colors duration-300 group-hover:bg-[#B99A4B]">
-              <ArrowUpRight
-                size={18}
-                className="transition-transform duration-300 group-hover:rotate-45"
-              />
-            </span>
-          </Link>
+<Link
+  to="/interviews"
+  className="group inline-flex w-fit items-center gap-2 rounded-full bg-[#111827] py-2 pl-4 pr-2 transition-all duration-300 hover:bg-[#1F2937]"
+>
+  <span className="text-[12px] font-semibold text-white">
+    Explore all interviews
+  </span>
+
+  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#F5A000] text-[#111827] transition-all duration-300 group-hover:bg-[#E6B94A]">
+    <ArrowUpRight
+      size={15}
+      className="transition-transform duration-300 group-hover:rotate-45"
+    />
+  </span>
+</Link>
         </motion.div>
 
         {/* INTERVIEW CARDS */}

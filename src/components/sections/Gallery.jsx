@@ -1,3 +1,4 @@
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
@@ -9,8 +10,6 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// Gallery images yahan aayengi. Real data ke liye <Gallery items={data} /> pass karo.
-// Har item: { id, category, title, image }. Pehla item bada dikhta hai (5 items best lagte hain).
 const defaultItems = [
   {
     id: 1,
@@ -63,7 +62,6 @@ export default function Gallery({ items = defaultItems }) {
 
   const close = useCallback(() => {
     setActiveIndex(null);
-    // focus wapas us card par jahan se lightbox khola tha
     lastTrigger.current?.focus?.();
   }, []);
 
@@ -140,36 +138,26 @@ export default function Gallery({ items = defaultItems }) {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-[#0A1A12] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-        {/* soft ambient glow */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-[#1F4A33]/35 blur-[120px]"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -bottom-48 -left-32 h-[480px] w-[480px] rounded-full bg-[#B99A4B]/10 blur-[130px]"
-        />
-
+      <section className="relative overflow-hidden bg-[#111827] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
         <div className="relative mx-auto max-w-[1400px]">
           {/* HEADER */}
           <motion.div
             {...headerMotion}
-            className="mb-10 flex flex-col justify-between gap-6 border-b border-white/10 pb-8 md:mb-12 md:flex-row md:items-end"
+            className="mb-10 flex flex-col justify-between gap-6 border-b border-white/15 pb-8 md:mb-12 md:flex-row md:items-end"
           >
             <div className="max-w-2xl">
               <div className="mb-4 flex items-center gap-3">
-                <span className="h-[2px] w-9 bg-[#B99A4B]" />
-                <span className="text-[12px] font-semibold tracking-[0.04em] text-[#8FB59A]">
+                <span className="h-[2px] w-9 bg-[#F5A000]" />
+                <span className="text-[12px] font-semibold tracking-[0.04em] text-[#E6B94A]">
                   Beyond the headlines
                 </span>
               </div>
 
-              <h2 className="font-display text-[34px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:text-[42px] lg:text-[50px]">
-                Moments in focus
-              </h2>
+              <p className="font-display text-[34px] font-bold leading-[1.1] tracking-[-0.04em] text-white sm:text-[32px] lg:text-[40px]">
+                Moments In <span className="text-[#E6B94A]">Focus.</span>
+              </p>
 
-              <p className="mt-4 max-w-xl text-[14px] leading-7 text-[#9DB2A3]">
+              <p className="mt-4 max-w-xl text-[14px] leading-7 text-white/75">
                 A visual journey through the people, events and experiences
                 shaping the renewable energy industry.
               </p>
@@ -177,14 +165,15 @@ export default function Gallery({ items = defaultItems }) {
 
             <Link
               to="/gallery"
-              className="group inline-flex w-fit items-center gap-4 rounded-full border border-white/15 bg-white/[0.03] py-2 pl-6 pr-2 transition-all duration-300 hover:border-[#D8BD76]/70 hover:bg-white/[0.06] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D8BD76]"
+              className="group inline-flex w-fit items-center gap-2 rounded-full bg-white py-2 pl-4 pr-2 transition-all duration-300 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5A000]"
             >
-              <span className="text-[13px] font-semibold text-white">
+              <span className="text-[12px] font-semibold text-[#111827]">
                 Explore full gallery
               </span>
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#D8BD76] text-[#0A1A12] transition-colors duration-300 group-hover:bg-white">
+
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F5A000] text-[#111827] transition-colors duration-300 group-hover:bg-[#E6B94A]">
                 <ArrowUpRight
-                  size={18}
+                  size={16}
                   className="transition-transform duration-300 group-hover:rotate-45"
                 />
               </span>
@@ -197,7 +186,7 @@ export default function Gallery({ items = defaultItems }) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:auto-rows-[230px] lg:grid-cols-4 lg:auto-rows-[260px] lg:gap-5"
+            className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:auto-rows-[300px] lg:grid-cols-4 lg:auto-rows-[340px] lg:gap-5"
           >
             {items.map((item, index) => {
               const isLead = index === 0;
@@ -213,41 +202,37 @@ export default function Gallery({ items = defaultItems }) {
                     setActiveIndex(index);
                   }}
                   aria-label={`Open photo: ${item.title}`}
-                  className={`group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-[#16301F] text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D8BD76] ${
-                    isLead
-                      ? "aspect-[4/3] sm:col-span-2 sm:row-span-2 sm:aspect-auto"
-                      : "aspect-[4/3] sm:aspect-auto"
+                  className={`group flex w-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white text-left transition-colors duration-500 hover:border-[#F5A000] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5A000] ${
+                    isLead ? "sm:col-span-2 sm:row-span-2" : ""
                   }`}
                 >
-                  <img
-                    src={item.image}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.07]"
-                  />
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#F8FAFC] sm:aspect-auto sm:min-h-0 sm:flex-1">
+                    <img
+                      src={item.image}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.07]"
+                    />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#07140E]/90 via-[#07140E]/20 to-transparent transition-opacity duration-500" />
-
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-6">
-                    <div className="min-w-0">
-                      <p className="text-[12px] font-semibold text-[#E2C987]">
-                        {item.category}
-                      </p>
-
-                      <h3
-                        className={`mt-2 font-display font-bold leading-snug tracking-[-0.02em] text-white ${
-                          isLead
-                            ? "max-w-md text-[22px] sm:text-[28px] lg:text-[32px]"
-                            : "line-clamp-2 text-[16px] sm:text-[17px]"
-                        }`}
-                      >
-                        {item.title}
-                      </h3>
-                    </div>
-
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-sm transition-all duration-500 group-hover:scale-110 group-hover:border-[#D8BD76] group-hover:bg-[#D8BD76] group-hover:text-[#0A1A12]">
+                    <span className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#111827] transition-all duration-500 group-hover:scale-110 group-hover:bg-[#F5A000]">
                       <Maximize2 size={16} />
                     </span>
+                  </div>
+
+                  <div className="border-t-4 border-[#F5A000] p-4 sm:p-5">
+                    <p className="inline-block rounded-full bg-[#111827] px-3 py-1 text-[11px] font-semibold text-white">
+                      {item.category}
+                    </p>
+
+                    <h3
+                      className={`mt-3 font-display font-bold leading-snug tracking-[-0.02em] text-[#111827] ${
+                        isLead
+                          ? "max-w-md text-[20px] sm:text-[26px]"
+                          : "line-clamp-2 text-[15px] sm:text-[16px]"
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
                   </div>
                 </motion.button>
               );
@@ -267,10 +252,10 @@ export default function Gallery({ items = defaultItems }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[100] flex flex-col bg-[#050E09]/95 backdrop-blur-md"
+            className="fixed inset-0 z-[100] flex flex-col bg-[#111827]/95 backdrop-blur-md"
             onClick={close}
           >
-            {/* top bar */}
+            {/* TOP BAR */}
             <div className="flex items-center justify-end p-4 sm:p-6">
               <button
                 ref={closeRef}
@@ -280,13 +265,13 @@ export default function Gallery({ items = defaultItems }) {
                   close();
                 }}
                 aria-label="Close gallery"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-[#D8BD76] hover:text-[#0A1A12] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D8BD76]"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-[#F5A000] hover:text-[#111827] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F5A000]"
               >
                 <X size={21} />
               </button>
             </div>
 
-            {/* stage */}
+            {/* STAGE */}
             <div className="relative flex min-h-0 flex-1 items-center justify-center px-4 sm:px-20">
               <button
                 type="button"
@@ -295,7 +280,7 @@ export default function Gallery({ items = defaultItems }) {
                   prev();
                 }}
                 aria-label="Previous photo"
-                className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-[#D8BD76] hover:text-[#0A1A12] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D8BD76] sm:left-8 sm:h-12 sm:w-12"
+                className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-[#F5A000] hover:text-[#111827] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F5A000] sm:left-8 sm:h-12 sm:w-12"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -319,10 +304,11 @@ export default function Gallery({ items = defaultItems }) {
                   />
 
                   <figcaption className="mt-5 text-center">
-                    <p className="text-[12px] font-semibold text-[#D8BD76]">
+                    <p className="inline-block rounded-full bg-[#F5A000] px-3 py-1 text-[11px] font-semibold text-[#111827]">
                       {active.category}
                     </p>
-                    <h3 className="mt-2 font-display text-lg font-bold text-white sm:text-2xl">
+
+                    <h3 className="mt-3 font-display text-lg font-bold text-white sm:text-2xl">
                       {active.title}
                     </h3>
                   </figcaption>
@@ -336,13 +322,13 @@ export default function Gallery({ items = defaultItems }) {
                   next();
                 }}
                 aria-label="Next photo"
-                className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-[#D8BD76] hover:text-[#0A1A12] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D8BD76] sm:right-8 sm:h-12 sm:w-12"
+                className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-[#F5A000] hover:text-[#111827] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F5A000] sm:right-8 sm:h-12 sm:w-12"
               >
                 <ChevronRight size={24} />
               </button>
             </div>
 
-            {/* thumbnails */}
+            {/* THUMBNAILS */}
             <div
               className="flex justify-center gap-2 overflow-x-auto p-4 sm:p-6"
               onClick={(e) => e.stopPropagation()}
@@ -354,9 +340,9 @@ export default function Gallery({ items = defaultItems }) {
                   onClick={() => jumpTo(index)}
                   aria-label={`Show photo: ${item.title}`}
                   aria-current={index === activeIndex}
-                  className={`h-14 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D8BD76] ${
+                  className={`h-14 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#F5A000] ${
                     index === activeIndex
-                      ? "border-[#D8BD76] opacity-100"
+                      ? "border-[#F5A000] opacity-100"
                       : "border-transparent opacity-50 hover:opacity-90"
                   }`}
                 >

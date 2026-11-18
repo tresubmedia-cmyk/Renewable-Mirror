@@ -1,9 +1,8 @@
+
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, CalendarDays } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// DUMMY DATA: real posts ke liye <NationalNews news={data} /> pass karo.
-// Har item: { id, category, date, title, image, slug }
 const defaultNews = [
   {
     id: 1,
@@ -51,7 +50,9 @@ const EASE = [0.22, 1, 0.36, 1];
 
 export default function NationalNews({ news = defaultNews }) {
   const reduce = useReducedMotion();
+
   if (!news || news.length === 0) return null;
+
   const items = news.slice(0, 4);
 
   const headerMotion = reduce
@@ -66,7 +67,10 @@ export default function NationalNews({ news = defaultNews }) {
   const listVariants = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: reduce ? 0 : 0.12, delayChildren: 0.15 },
+      transition: {
+        staggerChildren: reduce ? 0 : 0.12,
+        delayChildren: 0.15,
+      },
     },
   };
 
@@ -79,7 +83,6 @@ export default function NationalNews({ news = defaultNews }) {
     },
   };
 
-  // Image settle: reveal ke time image thodi zoom-out hoke ruk jaati hai
   const imageVariants = {
     hidden: reduce ? { scale: 1 } : { scale: 1.18 },
     visible: {
@@ -89,41 +92,45 @@ export default function NationalNews({ news = defaultNews }) {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-      <div className="mx-auto max-w-[1400px]">
+    <section className="relative overflow-hidden bg-[#111827] px-5 py-16 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
+      <div className="relative mx-auto max-w-[1400px]">
+
         {/* HEADER */}
         <motion.div
           {...headerMotion}
-          className="mb-10 flex flex-col justify-between gap-6 border-b border-[#e9ede6] pb-8 md:mb-12 md:flex-row md:items-end"
+          className="mb-10 flex flex-col justify-between gap-6 border-b border-white/20 pb-8 md:mb-12 md:flex-row md:items-end"
         >
           <div className="max-w-2xl">
             <div className="mb-4 flex items-center gap-3">
-              <span className="h-[2px] w-9 bg-[#B99A4B]" />
-              <span className="text-[12px] font-semibold tracking-[0.04em] text-[#667C65]">
-                India updates
+              <span className="h-[2px] w-9 bg-[#F5A000]" />
+
+              <span className="text-[12px] font-semibold tracking-[0.08em] text-[#E6B94A]">
+                INDIA UPDATES
               </span>
             </div>
 
-            <h2 className="font-display text-[34px] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#17291F] sm:text-[42px] lg:text-[50px]">
-              National news
+            <h2 className="font-display text-[34px] font-extrabold leading-[1.1] tracking-[-0.04em] text-white sm:text-[42px] lg:text-[50px]">
+              National News
             </h2>
 
-            <p className="mt-4 max-w-xl text-[14px] leading-7 text-[#6F7B6F]">
+            <p className="mt-4 max-w-xl text-[14px] leading-7 text-white/75">
               The latest developments, projects and policy updates from India's
               renewable energy sector.
             </p>
           </div>
 
+          {/* VIEW ALL BUTTON */}
           <Link
             to="/news/national"
-            className="group inline-flex w-fit items-center gap-4 rounded-full border border-[#dce3da] bg-white py-2 pl-6 pr-2 transition-all duration-300 hover:border-[#172D21] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B99A4B]"
+            className="group inline-flex w-fit items-center gap-2 rounded-full bg-white py-2 pl-4 pr-2 transition-all duration-300 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5A000]"
           >
-            <span className="text-[13px] font-semibold text-[#243C2D]">
+            <span className="text-[12px] font-semibold text-[#111827]">
               View all national news
             </span>
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#172D21] text-white transition-colors duration-300 group-hover:bg-[#B99A4B]">
+
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#F5A000] text-[#111827] transition-all duration-300 group-hover:bg-[#E6B94A]">
               <ArrowUpRight
-                size={18}
+                size={15}
                 className="transition-transform duration-300 group-hover:rotate-45"
               />
             </span>
@@ -136,7 +143,7 @@ export default function NationalNews({ news = defaultNews }) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-4"
+          className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-4"
         >
           {items.map((item) => (
             <motion.article
@@ -146,52 +153,55 @@ export default function NationalNews({ news = defaultNews }) {
             >
               <Link
                 to={item.slug || "/news/national"}
-                className="flex h-full flex-col focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B99A4B]"
+                className="flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-[#F5A000] hover:shadow-lg hover:shadow-black/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5A000]"
               >
                 {/* IMAGE */}
-                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#E8EEE6]">
-                  <div className="h-full w-full transition-transform duration-[900ms] ease-out group-hover:scale-110">
-                    <motion.img
-                      variants={imageVariants}
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#F8FAFC]">
+                  <motion.img
+                    variants={imageVariants}
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-110"
+                  />
 
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0B1B13]/40 via-transparent to-transparent" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#111827]/35 via-transparent to-transparent" />
 
-                  <span className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#172D21] transition-all duration-500 group-hover:rotate-45 group-hover:bg-[#D8BD76]">
-                    <ArrowUpRight size={18} />
+                  <span className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#111827] transition-all duration-500 group-hover:rotate-45 group-hover:bg-[#F5A000]">
+                    <ArrowUpRight size={17} />
                   </span>
                 </div>
 
-                {/* TEXT */}
-                <div className="flex flex-1 flex-col pt-5">
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px] font-medium text-[#7D887D]">
-                    <span className="text-[#9A7E34]">{item.category}</span>
+                {/* CONTENT */}
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-medium text-[#6B7280]">
+                    <span className="font-semibold text-[#B8860B]">
+                      {item.category}
+                    </span>
+
                     <span className="flex items-center gap-1.5">
-                      <CalendarDays size={13} />
+                      <CalendarDays size={12} />
                       {item.date}
                     </span>
                   </div>
 
-                  <h3 className="mt-3 line-clamp-4 font-display text-[17px] font-bold leading-[1.5] tracking-[-0.02em] text-[#17291F] transition-colors duration-300 group-hover:text-[#2F5A3E]">
+                  <h3 className="mt-3 line-clamp-4 font-display text-[16px] font-bold leading-[1.5] tracking-[-0.02em] text-[#111827] transition-colors duration-300 group-hover:text-[#B8860B]">
                     {item.title}
                   </h3>
 
                   <div className="mt-auto pt-6">
-                    {/* divider: hover par gold line left se fill hoti hai */}
-                    <div className="relative h-px w-full bg-[#e6eae3]">
-                      <span className="absolute left-0 top-0 h-px w-0 bg-[#B99A4B] transition-all duration-700 ease-out group-hover:w-full" />
+                    {/* DIVIDER */}
+                    <div className="relative h-px w-full bg-[#E5E7EB]">
+                      <span className="absolute left-0 top-0 h-px w-0 bg-[#F5A000] transition-all duration-700 group-hover:w-full" />
                     </div>
 
-                    <div className="mt-4 flex items-center justify-between text-[13px] font-semibold text-[#526D55] transition-colors duration-300 group-hover:text-[#17291F]">
+                    {/* READ STORY */}
+                    <div className="mt-4 flex items-center justify-between text-[12px] font-semibold text-[#111827]">
                       Read full story
+
                       <ArrowRight
                         size={16}
-                        className="text-[#B99A4B] transition-transform duration-300 group-hover:translate-x-1.5"
+                        className="text-[#B8860B] transition-transform duration-300 group-hover:translate-x-1.5"
                       />
                     </div>
                   </div>

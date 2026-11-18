@@ -2,7 +2,7 @@
 import ContactHero from "../components/contact/ContactHero";
 import ContactInfo from "../components/contact/ContactInfo";
 import ContactForm from "../components/contact/ContactForm";
-import ContactBrandStrip from "../components/contact/ContactBrandStrip";
+
 
 export default function ContactPage() {
   return (
@@ -16,7 +16,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <ContactBrandStrip />
+
     </main>
   );
 }

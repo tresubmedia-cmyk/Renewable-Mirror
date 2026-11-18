@@ -287,32 +287,45 @@ export default function EditorialCalendarPage() {
             Schedule may change subject to market conditions.
           </div>
         </div>
+        
       </section>
 
-      {/* CTA */}
-      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20">
-        <div className="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl bg-gradient-to-br from-[#1F4030] via-[#143222] to-[#0C2016] px-8 py-12 sm:px-14 sm:py-16 md:flex-row md:items-center">
-          <div className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full border border-[#D9BC70]/20" />
-          <div className="pointer-events-none absolute -bottom-24 right-40 h-60 w-60 rounded-full border border-white/10" />
 
-          <div className="relative max-w-xl">
-            <h2 className="font-serif text-3xl text-white sm:text-4xl">
-              Have an editorial idea?
-            </h2>
-            <p className="mt-3 text-sm leading-7 text-white/65">
-              Connect with our editorial team.
-            </p>
-          </div>
 
-          <Link
-            to="/contact"
-            className="relative inline-flex shrink-0 items-center gap-3 rounded-full bg-[#D9BC70] px-7 py-4 text-xs font-bold text-[#10291D] transition-colors hover:bg-white"
-          >
-            Contact Us
-            <ArrowUpRight size={16} />
-          </Link>
-        </div>
-      </section>
+
+
+  
+{/* CTA */}
+<section className="bg-white px-4 py-16 sm:px-6 sm:py-20">
+  <div className="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 overflow-hidden rounded-3xl bg-[#111827] px-8 py-12 sm:px-14 sm:py-16 md:flex-row md:items-center">
+
+    <div className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full border border-[#F5A000]/20" />
+    <div className="pointer-events-none absolute -bottom-24 right-40 h-60 w-60 rounded-full border border-white/10" />
+
+    <div className="relative max-w-xl">
+      <h2 className="font-serif text-3xl text-white sm:text-4xl">
+        Have an editorial idea?
+      </h2>
+
+      <p className="mt-3 text-sm leading-7 text-[#D1D5DB]/65">
+        Connect with our editorial team.
+      </p>
+    </div>
+
+    <Link
+      to="/contact"
+      className="relative inline-flex shrink-0 items-center gap-3 rounded-full bg-[#F5A000] px-7 py-4 text-xs font-bold text-[#111827] transition-colors hover:bg-[#E6B94A]"
+    >
+      Contact Us
+      <ArrowUpRight size={16} />
+    </Link>
+
+  </div>
+</section>
+
+
+
+
     </main>
   );
 }

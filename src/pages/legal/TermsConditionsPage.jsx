@@ -1,314 +1,242 @@
 
 import { Link } from "react-router-dom";
-import {
-  ArrowLeft,
-  FileText,
-  Scale,
-  Copyright,
-  Globe,
-  AlertCircle,
-  Mail,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const sections = [
   {
     id: "acceptance",
-    title: "1. Acceptance of Terms",
+    title: "Acceptance of Terms",
     content: [
-      "By accessing or using the Renewable Mirror website, you agree to comply with these Terms & Conditions.",
-      "If you do not agree with any part of these terms, please discontinue using our website.",
-    ],
+      "By accessing or using the Renewable Mirror website, you agree to comply with these Terms & Conditions. If you do not agree, please discontinue using our website."
+    ]
   },
   {
     id: "about",
-    title: "2. About Renewable Mirror",
+    title: "About Renewable Mirror",
     content: [
-      "Renewable Mirror is a media and information platform focused on the renewable energy and green energy industry.",
-      "Our website publishes industry news, reports, interviews, articles, publications, and other informational resources for readers and industry professionals.",
-    ],
+      "Renewable Mirror is a media and information platform focused on the renewable energy and green energy industry, publishing news, reports, interviews, articles and other informational resources."
+    ]
   },
   {
     id: "content",
-    title: "3. Website Content and Accuracy",
+    title: "Website Content and Accuracy",
     content: [
-      "We aim to provide relevant, informative, and up-to-date content. However, information published on our website is provided for general informational and educational purposes.",
-      "While we make reasonable efforts to maintain accuracy, we do not guarantee that all content is complete, current, or free from errors.",
-      "Industry developments, technical information, statistics, and market conditions may change over time. Readers should independently verify information before relying on it for important decisions.",
-    ],
+      "We aim to provide relevant and up-to-date information for general informational purposes. However, we do not guarantee that all content is complete, current or free from errors. Readers should independently verify information before relying on it."
+    ]
   },
   {
     id: "intellectual",
-    title: "4. Intellectual Property",
+    title: "Intellectual Property",
     content: [
-      "Unless otherwise stated, the website design, branding, original articles, written materials, graphics, and other original content published by Renewable Mirror are protected by applicable intellectual property laws.",
-      "You may access and share our publicly available content for personal and informational purposes, provided appropriate credit is given.",
-      "Reproduction, redistribution, modification, or commercial use of our content without prior written permission is not permitted, except where allowed by applicable law.",
-    ],
+      "Our original articles, branding, graphics and website materials are protected by applicable intellectual property laws. Reproduction or commercial use without prior written permission is not permitted, except where allowed by law."
+    ]
   },
   {
     id: "user-conduct",
-    title: "5. User Responsibilities",
+    title: "User Responsibilities",
     content: [
-      "When using our website, you agree not to:",
+      "When using our website, you agree not to:"
     ],
     bullets: [
       "Use the website for unlawful or fraudulent activities.",
-      "Submit false, misleading, harmful, or unauthorized information.",
-      "Attempt to gain unauthorized access to our website or systems.",
+      "Submit false, misleading or harmful information.",
+      "Attempt unauthorized access to our website or systems.",
       "Interfere with website functionality or security.",
-      "Copy, reproduce, or misuse website content without appropriate authorization.",
-    ],
+      "Reproduce or misuse content without authorization."
+    ]
   },
   {
     id: "submissions",
-    title: "6. User Submissions and Contributions",
+    title: "User Submissions and Contributions",
     content: [
-      "If you submit articles, photographs, feedback, event details, interviews, or other materials to Renewable Mirror, you confirm that you have the necessary rights and permissions to share those materials.",
-      "Submission of material does not automatically guarantee publication. Editorial decisions remain at the discretion of Renewable Mirror.",
-      "Any agreed publication, attribution, or usage arrangements may be handled separately between the parties.",
-    ],
+      "By submitting articles, photographs, feedback or other materials, you confirm that you have the necessary rights and permissions. Submission does not guarantee publication, and editorial decisions remain with Renewable Mirror."
+    ]
   },
   {
     id: "external",
-    title: "7. External Links",
+    title: "External Links",
     content: [
-      "Our website may include links to third-party websites, organizations, publications, or resources for additional information.",
-      "These external websites are independently operated. Renewable Mirror does not control or guarantee their content, availability, or policies.",
-      "Accessing third-party websites is at your own discretion.",
-    ],
+      "Our website may contain links to third-party websites. These websites operate independently, and Renewable Mirror does not control or guarantee their content or policies."
+    ]
   },
   {
     id: "liability",
-    title: "8. Limitation of Liability",
+    title: "Limitation of Liability",
     content: [
-      "To the extent permitted by applicable law, Renewable Mirror shall not be liable for any direct, indirect, incidental, or consequential loss arising from the use of our website or reliance on information published through it.",
-      "Nothing in these terms excludes liability that cannot legally be excluded under applicable law.",
-    ],
+      "To the extent permitted by applicable law, Renewable Mirror shall not be liable for losses arising from the use of our website or reliance on its published information. Nothing in these terms excludes liability that cannot legally be excluded."
+    ]
   },
   {
     id: "availability",
-    title: "9. Website Availability",
+    title: "Website Availability",
     content: [
-      "We aim to keep our website accessible and operational. However, we do not guarantee uninterrupted availability.",
-      "Website features, content, or services may be updated, modified, suspended, or discontinued when necessary.",
-    ],
+      "We aim to keep our website accessible but do not guarantee uninterrupted availability. Website features, content or services may be updated, modified or discontinued when necessary."
+    ]
   },
   {
     id: "changes",
-    title: "10. Changes to These Terms",
+    title: "Changes to These Terms",
     content: [
-      "Renewable Mirror reserves the right to revise these Terms & Conditions when necessary.",
-      "Updated terms will be published on this page. Continued use of the website after changes are published may constitute acceptance of the updated terms, subject to applicable law.",
-    ],
+      "We may revise these Terms & Conditions when necessary. Updated terms will be published on this page."
+    ]
   },
   {
     id: "law",
-    title: "11. Governing Law",
+    title: "Governing Law",
     content: [
-      "These Terms & Conditions shall be interpreted in accordance with applicable laws of India, subject to the jurisdiction of the competent courts.",
-    ],
-  },
-];
-
-const highlights = [
-  { icon: Scale, label: "Fair Usage" },
-  { icon: Copyright, label: "Copyright & Ownership" },
-  { icon: Globe, label: "Website Access" },
-  { icon: AlertCircle, label: "User Responsibilities" },
+      "These Terms & Conditions shall be interpreted in accordance with the applicable laws of India, subject to the jurisdiction of competent courts."
+    ]
+  }
 ];
 
 export default function TermsConditionsPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white text-[#17291F]">
 
       {/* HERO */}
-      <section className="border-b border-[#E8ECE8] bg-[#FAFBFA] px-5 pb-14 pt-16 sm:px-8 sm:pb-16 sm:pt-20">
-        <div className="mx-auto max-w-7xl">
+      <section className="border-b border-[#EAECE9]">
+        <div className="mx-auto max-w-7xl px-6 pb-16 pt-32 sm:px-10 lg:px-16">
 
           <Link
             to="/"
-            className="mb-10 inline-flex items-center gap-2 text-xs font-semibold text-[#65736A] transition-colors hover:text-[#A58B4D]"
+            className="mb-12 inline-flex items-center gap-2 text-sm text-[#747D76] transition-colors hover:text-[#A58B4D]"
           >
-            <ArrowLeft size={15} />
-            Back to Homepage
+            ← Back to Home
           </Link>
 
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-4xl">
 
-            <div className="max-w-2xl">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-[#A58B4D]">
+              Legal Information
+            </p>
 
-              <div className="flex items-center gap-3">
-                <span className="h-px w-8 bg-[#A58B4D]" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#A58B4D]">
-                  Legal Information
-                </span>
-              </div>
+            <h1 className="font-serif text-5xl font-medium tracking-tight sm:text-6xl lg:text-7xl">
+              Terms & Conditions
+            </h1>
 
-              <div className="mt-5 flex items-center gap-4">
-                <FileText
-                  size={38}
-                  strokeWidth={1.3}
-                  className="shrink-0 text-[#A58B4D]"
-                />
+            <p className="mt-6 max-w-2xl text-base leading-8 text-[#747D76]">
+              Please read these terms carefully before using Renewable Mirror.
+              They explain the conditions governing access to our website.
+            </p>
 
-                <h1 className="font-serif text-4xl font-semibold tracking-tight text-[#17291F] sm:text-5xl lg:text-6xl">
-                  Terms & Conditions
-                </h1>
-              </div>
-
-              <p className="mt-5 max-w-xl text-sm leading-7 text-[#737D75] sm:text-base">
-                Please read these terms carefully before using
-                Renewable Mirror. They explain the guidelines and
-                conditions governing access to our website.
-              </p>
-            </div>
-
-            <div className="text-xs text-[#858D86]">
-              Effective Date: November 16, 2026
-            </div>
+            <p className="mt-6 text-xs text-[#929A93]">
+              Effective date: November 16, 2026
+            </p>
 
           </div>
         </div>
       </section>
 
       {/* CONTENT */}
-      <section className="px-5 py-14 sm:px-8 sm:py-20">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[260px_1fr] lg:gap-20">
+      <section className="px-6 py-16 sm:px-10 lg:px-16 lg:py-24">
+        <article className="mx-auto max-w-4xl">
 
-          {/* SIDEBAR */}
-          <aside className="h-fit lg:sticky lg:top-28">
+          <div className="mb-12">
+            <h2 className="font-serif text-2xl font-medium sm:text-3xl">
+              Welcome to Renewable Mirror
+            </h2>
 
-            <p className="mb-5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#A58B4D]">
-              On This Page
+            <p className="mt-5 text-sm leading-8 text-[#747D76]">
+              These Terms & Conditions govern your access to and use
+              of the Renewable Mirror website. By visiting or using
+              our platform, you agree to these terms.
+            </p>
+          </div>
+
+          {/* TERMS SECTIONS */}
+          <div className="border-t border-[#EAECE9]">
+
+            {sections.map((section, index) => (
+              <section
+                key={section.id}
+                id={section.id}
+                className="scroll-mt-28 border-b border-[#EAECE9] py-8 sm:py-9"
+              >
+                <div className="flex items-start gap-5 sm:gap-8">
+
+                  <span className="pt-1 text-xs font-medium tabular-nums text-[#A58B4D]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <div className="min-w-0 flex-1">
+
+                    <h2 className="font-serif text-xl font-medium sm:text-2xl">
+                      {section.title}
+                    </h2>
+
+                    <div className="mt-3 space-y-3">
+                      {section.content.map((paragraph, i) => (
+                        <p
+                          key={i}
+                          className="text-sm leading-8 text-[#747D76]"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+
+                    {section.bullets && (
+                      <ul className="mt-4 space-y-3">
+                        {section.bullets.map((item) => (
+                          <li
+                            key={item}
+                            className="flex items-start gap-3 text-sm leading-7 text-[#747D76]"
+                          >
+                            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-[#A58B4D]" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                  </div>
+                </div>
+              </section>
+            ))}
+
+          </div>
+
+          {/* CONTACT */}
+          <div className="mt-14">
+            <h2 className="font-serif text-2xl font-medium">
+              Have Questions?
+            </h2>
+
+            <p className="mt-3 text-sm leading-7 text-[#747D76]">
+              If you have any questions about these Terms & Conditions,
+              please get in touch with our team.
             </p>
 
-            <nav className="space-y-1 border-l border-[#E5E9E5]">
-              {sections.map((section) => (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className="block border-l-2 border-transparent py-2 pl-4 text-xs text-[#737D75] transition-all hover:border-[#A58B4D] hover:text-[#17291F]"
-                >
-                  {section.title}
-                </a>
-              ))}
-            </nav>
+            <Link
+              to="/contact"
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#17291F] transition-colors hover:text-[#A58B4D]"
+            >
+              Contact Our Team
+              <ArrowUpRight size={16} />
+            </Link>
+          </div>
 
-            <div className="mt-10 border border-[#E5E9E5] bg-[#FAFBFA] p-5">
+          {/* BOTTOM LINKS */}
+          <div className="mt-16 flex flex-wrap items-center justify-between gap-5 border-t border-[#EAECE9] pt-7">
 
-              <Mail size={20} className="text-[#A58B4D]" />
+            <Link
+              to="/"
+              className="text-sm text-[#747D76] hover:text-[#A58B4D]"
+            >
+              ← Back to Home
+            </Link>
 
-              <p className="mt-4 font-serif text-lg text-[#17291F]">
-                Need clarification?
-              </p>
+            <Link
+              to="/privacy-policy"
+              className="text-sm font-medium text-[#17291F] hover:text-[#A58B4D]"
+            >
+              Privacy Policy →
+            </Link>
 
-              <p className="mt-2 text-xs leading-6 text-[#737D75]">
-                Get in touch with our team if you have questions
-                about these terms.
-              </p>
+          </div>
 
-              <Link
-                to="/contact"
-                className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-[#17291F] hover:text-[#A58B4D]"
-              >
-                Contact Us
-                <span>↗</span>
-              </Link>
-
-            </div>
-          </aside>
-
-          {/* MAIN CONTENT */}
-          <article className="max-w-3xl">
-
-            <div className="border-l-2 border-[#A58B4D] bg-[#FAFBFA] px-6 py-6">
-              <p className="text-sm leading-7 text-[#58645B]">
-                These Terms & Conditions govern your access to and use
-                of the Renewable Mirror website. By visiting or using
-                our platform, you acknowledge that you have read
-                and understood these terms.
-              </p>
-            </div>
-
-            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {highlights.map(({ icon: Icon, label }) => (
-                <div
-                  key={label}
-                  className="border border-[#E8ECE8] bg-white p-4"
-                >
-                  <Icon size={21} className="text-[#A58B4D]" />
-                  <p className="mt-3 text-[10px] font-semibold leading-5 text-[#35463A]">
-                    {label}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-12 space-y-11">
-              {sections.map((section) => (
-                <section
-                  key={section.id}
-                  id={section.id}
-                  className="scroll-mt-28"
-                >
-                  <h2 className="font-serif text-2xl font-semibold text-[#17291F] sm:text-[26px]">
-                    {section.title}
-                  </h2>
-
-                  <div className="mt-5 space-y-4">
-                    {section.content.map((paragraph, index) => (
-                      <p
-                        key={index}
-                        className="text-sm leading-8 text-[#667168]"
-                      >
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-
-                  {section.bullets && (
-                    <ul className="mt-5 space-y-3">
-                      {section.bullets.map((item) => (
-                        <li
-                          key={item}
-                          className="flex gap-3 text-sm leading-7 text-[#667168]"
-                        >
-                          <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-[#A58B4D]" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </section>
-              ))}
-            </div>
-
-            {/* CONTACT */}
-            <div className="mt-14 border border-[#E5E9E5] bg-[#FAFBFA] p-7 sm:p-9">
-
-              <h3 className="font-serif text-2xl font-semibold text-[#17291F]">
-                Need More Information?
-              </h3>
-
-              <p className="mt-3 text-sm leading-7 text-[#737D75]">
-                If you have any questions regarding these Terms &
-                Conditions, please contact our team.
-              </p>
-
-              <Link
-                to="/contact"
-                className="mt-6 inline-flex items-center gap-3 bg-[#17291F] px-6 py-3.5 text-xs font-bold text-white transition-colors hover:bg-[#A58B4D]"
-              >
-                Contact Our Team
-                <ArrowLeft size={14} className="rotate-180" />
-              </Link>
-
-            </div>
-
-          </article>
-        </div>
+        </article>
       </section>
-
     </main>
   );
 }

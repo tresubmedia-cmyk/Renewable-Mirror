@@ -42,19 +42,19 @@ export default function FeaturedNews() {
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-[2px] w-8 bg-[#B99A4B]" />
 
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#17271D]">
-  Renewable Mirror
-</span>
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#17271D]">
+                  Renewable Mirror
+                </span>
 
-<span className="text-[11px] font-bold uppercase tracking-[0.20em] text-[#B99A4B]">
-  Latest News
-</span>
+                <span className="text-[11px] font-bold uppercase tracking-[0.20em] text-[#B99A4B]">
+                  Latest News
+                </span>
               </div>
 
               {/* MAIN HEADING */}
-            <p className="font-display text-[25px] font-extrabold leading-tight tracking-[-0.04em] text-[#17271D] sm:text-[32px] lg:text-[38px]">
-  The latest stories shaping clean energy.
-</p>
+              <p className="font-display text-[25px] font-extrabold leading-tight tracking-[-0.04em] text-[#17271D] sm:text-[32px] lg:text-[38px]">
+                The latest stories shaping clean energy.
+              </p>
 
               {/* DESCRIPTION */}
               <div className="mt-5 flex items-start gap-4">
@@ -69,7 +69,8 @@ export default function FeaturedNews() {
 
             </div>
 
-      
+
+       
 {/* PREMIUM EXPLORE CTA */}
 <Link
   to="/news"
@@ -77,11 +78,11 @@ export default function FeaturedNews() {
     group relative inline-flex w-fit shrink-0
     items-center gap-4
     rounded-full
-    bg-[#172D21]
+    bg-[#111827]
     py-2 pl-6 pr-2
-    shadow-[0_5px_18px_rgba(23,45,33,0.10)]
+    shadow-[0_5px_18px_rgba(17,24,39,0.10)]
     transition-shadow duration-300
-    hover:shadow-[0_8px_24px_rgba(23,45,33,0.18)]
+    hover:shadow-[0_8px_24px_rgba(17,24,39,0.18)]
     lg:mb-2
   "
 >
@@ -89,20 +90,22 @@ export default function FeaturedNews() {
     text-[11px] font-bold tracking-[0.025em]
     text-white
   ">
-Explore Latest News  </span>
+    Explore Latest News
+  </span>
 
   <span className="
     flex h-10 w-10 shrink-0
     items-center justify-center
     rounded-full
-    bg-[#D8BD76]
-    text-[#172D21]
+    bg-[#F5A000]
+    text-[#111827]
     transition-transform duration-300 ease-out
     group-hover:rotate-45
   ">
     <ArrowUpRight size={19} strokeWidth={2} />
   </span>
 </Link>
+
 
           </div>
         </motion.div>
@@ -140,7 +143,7 @@ Explore Latest News  </span>
               {/* IMAGE OVERLAY */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#07130B]/45 via-transparent to-[#07130B]/5" />
 
-          
+
 
               {/* IMAGE BOTTOM LABEL */}
               <div className="absolute bottom-5 left-5 sm:bottom-7 sm:left-7">

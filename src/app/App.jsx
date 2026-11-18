@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router-dom";
 
 import { SiteLayout } from "../components/layout/SiteLayout";
 import ScrollToTop from "../components/common/ScrollToTop";
+import BackToTop from "../components/common/BackToTop";
+import WhatsAppButton from "../components/common/WhatsAppButton";
 
 import { HomePage } from "../pages/HomePage";
 import { NewsPage } from "../pages/NewsPage";
@@ -23,9 +25,7 @@ import EventCalendarPage from "../pages/EventCalendarPage";
 import ResourcesPage from "../pages/ResourcesPage";
 import CoverStoryPage from "../pages/CoverStoryPage";
 
-
 import ArticleDetailPage from "../pages/ArticleDetailPage";
-
 
 import PrivacyPolicyPage from "../pages/legal/PrivacyPolicyPage";
 import TermsConditionsPage from "../pages/legal/TermsConditionsPage";
@@ -33,8 +33,10 @@ import TermsConditionsPage from "../pages/legal/TermsConditionsPage";
 export default function App() {
   return (
     <>
+      {/* SCROLL TO TOP ON ROUTE CHANGE */}
       <ScrollToTop />
 
+      {/* WEBSITE LAYOUT */}
       <SiteLayout>
         <Routes>
           {/* HOME */}
@@ -43,7 +45,7 @@ export default function App() {
           {/* NEWS */}
           <Route path="/news" element={<NewsPage />} />
 
-          {/* NEWS CATEGORY PAGES */}
+          {/* NEWS CATEGORY */}
           <Route
             path="/news/national"
             element={<NewsCategoryPage />}
@@ -81,29 +83,46 @@ export default function App() {
           {/* SEARCH */}
           <Route path="/search" element={<SearchPage />} />
 
+          {/* ARTICLE DETAILS */}
+          <Route
+            path="/news/:category/:slug"
+            element={<ArticleDetailPage />}
+          />
+
+          <Route
+            path="/cover-story/:slug"
+            element={<ArticleDetailPage />}
+          />
+
+          <Route
+            path="/interviews/:slug"
+            element={<ArticleDetailPage />}
+          />
+
+          <Route
+            path="/magazine/:slug"
+            element={<ArticleDetailPage />}
+          />
+
+          {/* LEGAL PAGES */}
+          <Route
+            path="/privacy-policy"
+            element={<PrivacyPolicyPage />}
+          />
+
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsConditionsPage />}
+          />
+
           {/* 404 - ALWAYS LAST */}
           <Route path="*" element={<NotFoundPage />} />
-
-
-
-
-<Route path="/news/:category/:slug" element={<ArticleDetailPage />} />
-<Route path="/cover-story/:slug" element={<ArticleDetailPage />} />
-<Route path="/interviews/:slug" element={<ArticleDetailPage />} />
-<Route path="/magazine/:slug" element={<ArticleDetailPage />} />
-
-
-
-
-<Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-<Route
-  path="/terms-and-conditions"
-  element={<TermsConditionsPage />}
-/>
-
-
         </Routes>
       </SiteLayout>
+
+      {/* FLOATING BUTTONS - ALL PAGES */}
+      <BackToTop />
+      <WhatsAppButton />
     </>
   );
 }

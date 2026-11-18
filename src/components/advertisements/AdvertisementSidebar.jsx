@@ -64,6 +64,7 @@ export default function AdvertisementSidebar() {
 
 
 
+
 {/* PREMIUM ADVERTISING CTA */}
 <motion.div
   initial={{ opacity: 0, y: 20 }}
@@ -72,7 +73,7 @@ export default function AdvertisementSidebar() {
   transition={{ duration: 0.6 }}
   className="
     group relative mt-8 overflow-hidden
-    bg-[#172D21]
+    bg-[#111827]
     px-6 py-7 sm:px-7 sm:py-8
   "
 >
@@ -86,13 +87,13 @@ export default function AdvertisementSidebar() {
   <div className="
     pointer-events-none absolute -right-5 -top-9
     h-32 w-32 rounded-full
-    border border-[#C5A75D]/20
+    border border-[#F5A000]/20
   " />
 
   <div className="
     pointer-events-none absolute bottom-0 right-20
     h-24 w-24 rounded-full
-    bg-[#B99A4B]/10 blur-3xl
+    bg-[#F5A000]/10 blur-3xl
   " />
 
   {/* CONTENT */}
@@ -100,58 +101,58 @@ export default function AdvertisementSidebar() {
 
     {/* EYEBROW */}
     <div className="mb-5 flex items-center gap-2.5">
-      <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#C5A75D]/40 bg-[#C5A75D]/10">
-        <Megaphone size={13} className="text-[#D8BD76]" />
+      <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#F5A000]/40 bg-[#F5A000]/10">
+        <Megaphone size={13} className="text-[#F5A000]" />
       </span>
 
       <span className="
         text-[9px] font-bold uppercase
-        tracking-[0.2em] text-[#D8BD76]
+        tracking-[0.2em] text-[#F5A000]
       ">
         Grow Your Brand
       </span>
 
-      <span className="h-px w-8 bg-[#C5A75D]/50" />
+      <span className="h-px w-8 bg-[#F5A000]/50" />
     </div>
 
-  {/* MAIN CONTENT */}
-<div className="flex items-center justify-between gap-4">
+    {/* MAIN CONTENT */}
+    <div className="flex items-center justify-between gap-4">
 
-  <div className="min-w-0">
-    <p className="
-      font-display text-[17px] font-bold
-      leading-snug tracking-[-0.035em]
-      text-white sm:text-[20px]
-    ">
-      Make Your Brand{" "}
-      <span className="font-serif italic text-[#D8BD76]">
-        Stand Out.
-      </span>
-    </p>
+      <div className="min-w-0">
+        <p className="
+          font-display text-[17px] font-bold
+          leading-snug tracking-[-0.035em]
+          text-white sm:text-[20px]
+        ">
+          Make Your Brand{" "}
+          <span className="font-serif italic text-[#F5A000]">
+            Stand Out.
+          </span>
+        </p>
 
-    <p className="
-      mt-2 text-[11px] font-semibold
-      leading-relaxed text-white/65
-    ">
-      Connect with decision-makers across the renewable energy sector.
-    </p>
-  </div>
+        <p className="
+          mt-2 text-[11px] font-semibold
+          leading-relaxed text-[#D1D5DB]/75
+        ">
+          Connect with decision-makers across the renewable energy sector.
+        </p>
+      </div>
 
-  <Link
-    to="/contact"
-    aria-label="Contact us for advertising"
-    className="
-      flex h-12 w-12 shrink-0 items-center
-      justify-center rounded-full
-      bg-[#D8BD76] text-[#172D21]
-      transition-transform duration-300
-      group-hover:rotate-45
-    "
-  >
-    <ArrowUpRight size={21} />
-  </Link>
+      <Link
+        to="/contact"
+        aria-label="Contact us for advertising"
+        className="
+          flex h-12 w-12 shrink-0 items-center
+          justify-center rounded-full
+          bg-[#F5A000] text-[#111827]
+          transition-transform duration-300
+          group-hover:rotate-45
+        "
+      >
+        <ArrowUpRight size={21} />
+      </Link>
 
-</div>
+    </div>
 
     {/* BOTTOM INFORMATION */}
     <div className="
@@ -160,14 +161,14 @@ export default function AdvertisementSidebar() {
     ">
       <span className="
         text-[8px] font-semibold uppercase
-        tracking-[0.16em] text-white/50
+        tracking-[0.16em] text-white/60
       ">
         Renewable Mirror
       </span>
 
       <span className="
         text-[8px] font-semibold uppercase
-        tracking-[0.14em] text-[#D8BD76]
+        tracking-[0.14em] text-[#F5A000]
       ">
         Partner With Us ↗
       </span>
@@ -175,7 +176,6 @@ export default function AdvertisementSidebar() {
 
   </div>
 </motion.div>
-
 
     </aside>
   );

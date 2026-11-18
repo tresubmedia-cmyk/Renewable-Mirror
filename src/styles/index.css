@@ -997,3 +997,84 @@ button {
 
 /* feacture css */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   FINAL SCROLLED NAVBAR - WHITE THEME
+========================================== */
+
+.rm-navbar.is-scrolled {
+  background: #ffffff !important;
+  color: #17212b !important;
+  border-bottom: 1px solid #e8edf0;
+  box-shadow: none !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Desktop Navigation Text */
+.rm-navbar.is-scrolled .rm-nav-link {
+  color: #17212b !important;
+}
+
+.rm-navbar.is-scrolled .rm-nav-link:hover,
+.rm-navbar.is-scrolled .rm-nav-link.active {
+  color: #bd9134 !important;
+}
+
+/* Dropdown */
+.rm-navbar.is-scrolled .rm-dropdown {
+  background: #ffffff !important;
+  border: 1px solid #e8edf0;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.rm-navbar.is-scrolled .rm-dropdown-heading {
+  color: #bd9134 !important;
+}
+
+.rm-navbar.is-scrolled .rm-dropdown a {
+  color: #17212b !important;
+}
+
+.rm-navbar.is-scrolled .rm-dropdown a:hover {
+  background: #f5f8fa;
+  color: #bd9134 !important;
+}
+
+/* Contact Button */
+.rm-navbar.is-scrolled .rm-contact-btn {
+  background: #1e4e6d !important;
+  color: #ffffff !important;
+}
+
+.rm-navbar.is-scrolled .rm-contact-btn span {
+  background: #d4a22a !important;
+  color: #1e4e6d !important;
+}
+
+/* Mobile Menu Icon */
+.rm-navbar.is-scrolled .rm-mobile-toggle {
+  background: transparent !important;
+  color: #17212b !important;
+  border-color: #dce3e8;
+}

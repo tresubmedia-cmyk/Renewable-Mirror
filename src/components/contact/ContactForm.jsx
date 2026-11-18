@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -17,10 +17,12 @@ export default function ContactForm() {
   const [form, setForm] = useState(initialForm);
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -29,12 +31,12 @@ export default function ContactForm() {
     const body = `
 Name: ${form.name}
 Email: ${form.email}
-Company: ${form.company}
+Company: ${form.company || "Not provided"}
 Enquiry Type: ${form.subject}
 
 Message:
 ${form.message}
-    `;
+    `.trim();
 
     const mailto = `mailto:neha@renewablemirror.com?subject=${encodeURIComponent(
       form.subject
@@ -43,39 +45,46 @@ ${form.message}
     window.location.href = mailto;
   };
 
+  const inputClass =
+    "w-full border-b border-[#D1D5DB] bg-transparent px-0 py-2.5 text-[13px] text-[#1F2937] outline-none transition-colors placeholder:text-[#9CA3AF] focus:border-[#F5A000]";
+
+  const labelClass =
+    "mb-1 block text-[10px] font-bold uppercase tracking-[0.12em] text-[#1F2937]";
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, x: 20 }}
+      whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.75, ease: EASE }}
-      className="rounded-2xl border border-[#E8ECE6] bg-[#FAFBF8] p-6 sm:p-9 lg:p-11"
+      transition={{ duration: 0.7, ease: EASE }}
+      className="flex h-full flex-col justify-center bg-white px-6 py-8 sm:px-9 sm:py-10 lg:px-11 lg:py-11"
     >
-      <div className="mb-9">
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#A58B4D]">
+      {/* HEADER */}
+      <div className="mb-7">
+        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B8860B]">
           Send Us a Message
         </span>
 
-        <h2 className="mt-3 font-display text-[28px] font-extrabold tracking-[-0.04em] text-[#17291F] sm:text-[34px]">
+        <h2 className="mt-2.5 font-display text-[26px] font-bold tracking-tight text-[#111827] sm:text-[30px]">
           How can we help?
         </h2>
 
-        <p className="mt-3 text-[12px] leading-6 text-[#828C81]">
-          Fill in the details below and our team will be happy
-          to connect with you.
+        <p className="mt-2 text-[12px] leading-6 text-[#6B7280]">
+          Tell us a little about your enquiry. We'd love to hear from you.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
 
-        {/* Name and Email */}
+        {/* NAME AND EMAIL */}
         <div className="grid gap-6 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block text-[11px] font-bold text-[#344739]">
+            <label htmlFor="contact-name" className={labelClass}>
               Your Name *
             </label>
 
             <input
+              id="contact-name"
               type="text"
               name="name"
               value={form.name}
@@ -83,16 +92,17 @@ ${form.message}
               placeholder="Enter your name"
               autoComplete="name"
               required
-              className="w-full rounded-lg border border-[#E0E6DE] bg-white px-4 py-3.5 text-[12px] text-[#17291F] outline-none transition-all placeholder:text-[#A5ADA3] focus:border-[#A58B4D] focus:ring-2 focus:ring-[#D8BD76]/15"
+              className={inputClass}
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-[11px] font-bold text-[#344739]">
-              Email Address *
+            <label htmlFor="contact-email" className={labelClass}>
+              Your Email *
             </label>
 
             <input
+              id="contact-email"
               type="email"
               name="email"
               value={form.email}
@@ -100,40 +110,42 @@ ${form.message}
               placeholder="you@example.com"
               autoComplete="email"
               required
-              className="w-full rounded-lg border border-[#E0E6DE] bg-white px-4 py-3.5 text-[12px] text-[#17291F] outline-none transition-all placeholder:text-[#A5ADA3] focus:border-[#A58B4D] focus:ring-2 focus:ring-[#D8BD76]/15"
+              className={inputClass}
             />
           </div>
         </div>
 
-        {/* Company */}
+        {/* COMPANY */}
         <div>
-          <label className="mb-2 block text-[11px] font-bold text-[#344739]">
+          <label htmlFor="contact-company" className={labelClass}>
             Company / Organisation
           </label>
 
           <input
+            id="contact-company"
             type="text"
             name="company"
             value={form.company}
             onChange={handleChange}
             placeholder="Your company name"
             autoComplete="organization"
-            className="w-full rounded-lg border border-[#E0E6DE] bg-white px-4 py-3.5 text-[12px] text-[#17291F] outline-none transition-all placeholder:text-[#A5ADA3] focus:border-[#A58B4D] focus:ring-2 focus:ring-[#D8BD76]/15"
+            className={inputClass}
           />
         </div>
 
-        {/* Enquiry Type */}
+        {/* ENQUIRY TYPE */}
         <div>
-          <label className="mb-2 block text-[11px] font-bold text-[#344739]">
+          <label htmlFor="contact-subject" className={labelClass}>
             Enquiry Type *
           </label>
 
           <select
+            id="contact-subject"
             name="subject"
             value={form.subject}
             onChange={handleChange}
             required
-            className="w-full rounded-lg border border-[#E0E6DE] bg-white px-4 py-3.5 text-[12px] text-[#17291F] outline-none transition-all focus:border-[#A58B4D]"
+            className={`${inputClass} cursor-pointer`}
           >
             <option>General Enquiry</option>
             <option>Advertising & Partnerships</option>
@@ -144,38 +156,40 @@ ${form.message}
           </select>
         </div>
 
-        {/* Message */}
+        {/* MESSAGE */}
         <div>
-          <label className="mb-2 block text-[11px] font-bold text-[#344739]">
+          <label htmlFor="contact-message" className={labelClass}>
             Your Message *
           </label>
 
           <textarea
+            id="contact-message"
             name="message"
             value={form.message}
             onChange={handleChange}
             placeholder="Tell us how we can help..."
-            rows={5}
+            rows={3}
             required
-            className="w-full resize-none rounded-lg border border-[#E0E6DE] bg-white px-4 py-3.5 text-[12px] leading-6 text-[#17291F] outline-none transition-all placeholder:text-[#A5ADA3] focus:border-[#A58B4D] focus:ring-2 focus:ring-[#D8BD76]/15"
+            className={`${inputClass} resize-none leading-6`}
           />
         </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="group flex w-full items-center justify-between rounded-full bg-[#172D21] py-2 pl-6 pr-2 text-white transition-colors duration-300 hover:bg-[#254A34]"
-        >
-          <span className="text-[11px] font-bold uppercase tracking-[0.1em]">
+        {/* SUBMIT */}
+        <div className="flex justify-end pt-1">
+          <button
+            type="submit"
+            className="group inline-flex items-center gap-3 rounded-lg bg-[#F5A000] px-5 py-3 text-[12px] font-bold text-[#111827] transition-colors duration-300 hover:bg-[#E6B94A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#F5A000]"
+          >
             Send Your Message
-          </span>
 
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#D8BD76] text-[#172D21] transition-transform duration-300 group-hover:rotate-45">
-            <ArrowUpRight size={19} />
-          </span>
-        </button>
+            <ArrowRight
+              size={16}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </button>
+        </div>
 
-        <p className="text-center text-[10px] leading-5 text-[#929B91]">
+        <p className="text-right text-[9px] leading-4 text-[#9CA3AF]">
           Your message will open in your default email application.
         </p>
       </form>

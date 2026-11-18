@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
@@ -24,18 +25,23 @@ const items = [
   },
 ];
 
-/* The giant word. Its baseline sits exactly on the waterline;
-   letters rise out of the water and sink back when it changes. */
 function Word({ text, reduce }) {
   const wrap = {
     hidden: {},
     show: { transition: { staggerChildren: reduce ? 0 : 0.05 } },
     exit: { transition: { staggerChildren: reduce ? 0 : 0.025 } },
   };
+
   const letter = {
     hidden: { y: reduce ? 0 : "110%" },
-    show: { y: 0, transition: { duration: reduce ? 0 : 0.7, ease: EASE } },
-    exit: { y: reduce ? 0 : "110%", transition: { duration: reduce ? 0 : 0.3, ease: EASE } },
+    show: {
+      y: 0,
+      transition: { duration: reduce ? 0 : 0.7, ease: EASE },
+    },
+    exit: {
+      y: reduce ? 0 : "110%",
+      transition: { duration: reduce ? 0 : 0.3, ease: EASE },
+    },
   };
 
   return (
@@ -66,20 +72,30 @@ export default function OurMission() {
   const current = items[active];
 
   const onKeyDown = (e) => {
-    if (e.key === "ArrowRight") setActive((a) => (a + 1) % items.length);
-    if (e.key === "ArrowLeft") setActive((a) => (a - 1 + items.length) % items.length);
+    if (e.key === "ArrowRight") {
+      setActive((a) => (a + 1) % items.length);
+    }
+    if (e.key === "ArrowLeft") {
+      setActive((a) => (a - 1 + items.length) % items.length);
+    }
   };
 
   return (
     <section
       id="our-mission"
-      className="relative overflow-hidden bg-[#10291D] px-6 py-24 text-[#F4F1E8] sm:px-10 lg:px-16 lg:py-32"
+      className="relative overflow-hidden bg-[#111827] px-6 py-20 text-white sm:px-10 lg:px-16 lg:py-28"
     >
-      {/* Ripple filter used by the reflection */}
+      {/* RIPPLE FILTER */}
       <svg aria-hidden className="absolute h-0 w-0">
         <defs>
           <filter id="mm-ripple" x="0" y="0" width="100%" height="100%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.004 0.04" numOctaves="2" seed="4" result="noise">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.004 0.04"
+              numOctaves="2"
+              seed="4"
+              result="noise"
+            >
               {!reduce && (
                 <animate
                   attributeName="baseFrequency"
@@ -89,19 +105,26 @@ export default function OurMission() {
                 />
               )}
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="22" xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="noise"
+              scale="22"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
           </filter>
         </defs>
       </svg>
 
-      {/* Soft glow behind the stage */}
+      {/* GOLD AMBIENT GLOW */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-[#D9BC70]/[0.06] blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[40rem] w-[60rem] -translate-x-1/2 -translate-y-1/3 rounded-full bg-[#F5A000]/[0.045] blur-3xl"
       />
 
       <div className="relative mx-auto max-w-7xl">
-        {/* Top row: heading + tabs */}
+
+        {/* TOP ROW */}
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -110,17 +133,26 @@ export default function OurMission() {
           className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between"
         >
           <div>
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
               Our Mission.
-              <span className="font-serif font-medium  text-[#D9BC70]"> Our Direction.</span>
+              <span className="font-serif font-medium text-[#E6B94A]">
+                {" "}Our Direction.
+              </span>
             </h2>
-            <p className="mt-4 max-w-md text-base leading-7 text-[#F4F1E8]/60">
+
+            <p className="mt-3 max-w-md text-sm leading-7 text-white/65 sm:text-[14px]">
               The principles that guide our work and shape the perspective we
               bring to the renewable energy industry.
             </p>
           </div>
 
-          <div role="tablist" aria-label="What drives us" onKeyDown={onKeyDown} className="flex gap-7">
+          {/* TABS */}
+          <div
+            role="tablist"
+            aria-label="What drives us"
+            onKeyDown={onKeyDown}
+            className="flex gap-7"
+          >
             {items.map((item, i) => (
               <button
                 key={item.id}
@@ -128,16 +160,22 @@ export default function OurMission() {
                 aria-selected={active === i}
                 tabIndex={active === i ? 0 : -1}
                 onClick={() => setActive(i)}
-                className={`relative pb-2 text-base font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D9BC70] ${
-                  active === i ? "text-[#D9BC70]" : "text-[#F4F1E8]/50 hover:text-[#F4F1E8]"
+                className={`relative pb-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E6B94A] ${
+                  active === i
+                    ? "text-[#E6B94A]"
+                    : "text-white/55 hover:text-white"
                 }`}
               >
                 {item.word}
+
                 {active === i && (
                   <motion.span
                     layoutId="mm-tab"
-                    transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
-                    className="absolute inset-x-0 bottom-0 h-px bg-[#D9BC70]"
+                    transition={{
+                      duration: reduce ? 0 : 0.4,
+                      ease: EASE,
+                    }}
+                    className="absolute inset-x-0 bottom-0 h-px bg-[#F5A000]"
                   />
                 )}
               </button>
@@ -145,25 +183,28 @@ export default function OurMission() {
           </div>
         </motion.div>
 
-        {/* Stage */}
-        <div className="mt-16 grid items-end gap-10 lg:mt-24 lg:grid-cols-[1fr_21rem] lg:gap-16">
+        {/* STAGE */}
+        <div className="mt-14 grid items-end gap-10 lg:mt-20 lg:grid-cols-[1fr_21rem] lg:gap-16">
+
           <div
             aria-hidden
-            className="select-none font-serif font-medium tracking-tight"
-            style={{ fontSize: "clamp(4.5rem, 15vw, 13rem)" }}
+            className="select-none font-serif font-medium tracking-tight text-[#E6B94A]"
+            style={{ fontSize: "clamp(4rem, 14vw, 11rem)" }}
           >
             <Word text={current.word} reduce={reduce} />
 
-            {/* Waterline */}
-            <div className="h-px bg-gradient-to-r from-[#D9BC70] via-[#D9BC70]/40 to-transparent" />
+            {/* WATERLINE */}
+            <div className="h-px bg-gradient-to-r from-[#F5A000] via-[#F5A000]/40 to-transparent" />
 
-            {/* Reflection */}
+            {/* REFLECTION */}
             <div
               className="opacity-30"
               style={{
                 filter: "url(#mm-ripple)",
-                WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 85%)",
-                maskImage: "linear-gradient(to bottom, black 0%, transparent 85%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, transparent 85%)",
+                maskImage:
+                  "linear-gradient(to bottom, black 0%, transparent 85%)",
               }}
             >
               <div style={{ transform: "scaleY(-1)" }}>
@@ -172,6 +213,7 @@ export default function OurMission() {
             </div>
           </div>
 
+          {/* DESCRIPTION */}
           <div className="lg:pb-3" aria-live="polite">
             <AnimatePresence mode="wait">
               <motion.p
@@ -180,13 +222,14 @@ export default function OurMission() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={reduce ? undefined : { opacity: 0, y: -8 }}
                 transition={{ duration: 0.4, ease: EASE }}
-                className="border-l border-[#D9BC70]/60 pl-6 text-lg leading-8 text-[#F4F1E8]/80"
+                className="border-l border-[#F5A000]/70 pl-6 text-base leading-7 text-white/80"
               >
                 <span className="sr-only">{current.word}: </span>
                 {current.description}
               </motion.p>
             </AnimatePresence>
           </div>
+
         </div>
       </div>
     </section>

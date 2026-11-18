@@ -447,7 +447,7 @@ export default function ArticleDetail({ article }) {
             </div>
 
             <div className="mt-6 border-t border-[#E1E7DF] pt-6">
-              <p className="font-serif text-xl italic text-[#526B55]">
+              <p className="font-serif text-xl  text-[#526B55]">
                 Read. Reflect. Reimagine.
               </p>
               <p className="mt-2 text-xs leading-5 text-[#7A857B]">

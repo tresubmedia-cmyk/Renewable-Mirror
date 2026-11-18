@@ -1,6 +1,14 @@
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Camera, Images, X } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Camera,
+  Images,
+  X,
+} from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -18,7 +26,6 @@ const galleryImages = [
 
 const categories = ["All", "Events", "Exhibitions", "People", "Projects"];
 
-/* Mosaic rhythm: a big tile, small ones, a wide one, a tall one, then repeat */
 const SPANS = [
   "lg:col-span-2 lg:row-span-2",
   "",
@@ -33,13 +40,20 @@ const pad = (n) => String(n).padStart(2, "0");
 function Placeholder({ className = "" }) {
   return (
     <div
-      aria-hidden
-      className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#234433] to-[#10291D] ${className}`}
+      aria-hidden="true"
+      className={`absolute inset-0 flex items-center justify-center bg-[#163d56] ${className}`}
     >
-      <Camera size={34} strokeWidth={1.2} className="text-[#D9BC70]/35" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,162,42,0.10),transparent_60%)]" />
+      <Camera
+        size={36}
+        strokeWidth={1.2}
+        className="relative text-[#d4a22a]/50"
+      />
     </div>
   );
 }
+
+/* ---------------- GALLERY TILE ---------------- */
 
 function Tile({ item, index, onOpen, reduce }) {
   const [failed, setFailed] = useState(false);
@@ -48,44 +62,63 @@ function Tile({ item, index, onOpen, reduce }) {
     <motion.button
       layout={!reduce}
       type="button"
-      initial={reduce ? false : { opacity: 0, y: 30 }}
+      initial={reduce ? false : { opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={reduce ? undefined : { opacity: 0, scale: 0.94 }}
-      transition={{ duration: 0.6, delay: Math.min(index, 6) * 0.06, ease: EASE }}
+      exit={reduce ? undefined : { opacity: 0, scale: 0.96 }}
+      transition={{
+        duration: 0.55,
+        delay: Math.min(index, 6) * 0.05,
+        ease: EASE,
+      }}
       onClick={() => onOpen(index)}
-      aria-label={`Open ${item.title}`}
-      className={`group relative overflow-hidden rounded-2xl bg-[#10291D] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#A58B4D] focus-visible:ring-offset-2 ${SPANS[index % SPANS.length]}`}
+      aria-label={`View photograph: ${item.title}`}
+      className={`group relative isolate min-h-0 overflow-hidden rounded-2xl bg-[#163d56] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#d4a22a] focus-visible:ring-offset-4 focus-visible:ring-offset-white ${SPANS[index % SPANS.length]}`}
     >
       <Placeholder />
+
       {!failed && (
         <img
           src={item.image}
-          alt=""
+          alt={item.title}
           loading="lazy"
+          draggable="false"
           onError={() => setFailed(true)}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.07] motion-reduce:transition-none"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] motion-reduce:transition-none"
         />
       )}
 
+      {/* Image overlay */}
       <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-[#07140D]/85 via-[#07140D]/10 to-transparent transition-opacity duration-500 group-hover:opacity-90"
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-[#071b2a]/90 via-[#071b2a]/20 to-[#071b2a]/5 transition-opacity duration-500 group-hover:from-[#071b2a]/95"
       />
 
-      {/* Number tag */}
-      <span className="absolute left-5 top-5 rounded-full bg-[#F4F1E8]/90 px-3 py-1 text-xs font-semibold text-[#10291D]">
-        {pad(index + 1)}
-      </span>
+      {/* Top details */}
+      <div className="absolute inset-x-0 top-0 flex items-center justify-between p-5 sm:p-6">
+        <span className="rounded-full border border-white/20 bg-[#102f45]/70 px-3 py-1.5 text-[10px] font-semibold tracking-[0.14em] text-white backdrop-blur-md">
+          {pad(index + 1)}
+        </span>
+
+        <span className="rounded-full border border-white/20 bg-[#102f45]/50 px-3 py-1.5 text-[10px] font-medium tracking-wide text-white/80 backdrop-blur-md">
+          {item.category}
+        </span>
+      </div>
 
       {/* Caption */}
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-6">
         <div>
-          <p className="text-sm font-medium text-[#D9BC70]">{item.category}</p>
-          <h3 className="mt-1 font-serif text-xl leading-snug text-[#F4F1E8] sm:text-2xl">
+          <span className="mb-2 block h-px w-8 bg-[#d4a22a] transition-all duration-500 group-hover:w-14" />
+
+          <h3 className="max-w-sm font-serif text-xl leading-snug text-white sm:text-2xl">
             {item.title}
           </h3>
+
+          <p className="mt-2 text-xs font-medium tracking-wide text-white/60">
+            Explore photograph
+          </p>
         </div>
-        <span className="flex h-11 w-11 shrink-0 translate-y-1 items-center justify-center rounded-full border border-white/40 text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:border-[#D9BC70] group-hover:bg-[#D9BC70] group-hover:text-[#10291D] group-hover:opacity-100 group-focus-visible:opacity-100">
+
+        <span className="flex h-10 w-10 shrink-0 translate-y-2 items-center justify-center rounded-full border border-white/30 text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:border-[#d4a22a] group-hover:bg-[#d4a22a] group-hover:text-[#1e4e6d] group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
           <ArrowUpRight size={18} />
         </span>
       </div>
@@ -93,202 +126,360 @@ function Tile({ item, index, onOpen, reduce }) {
   );
 }
 
+/* ---------------- LIGHTBOX ---------------- */
+
 function Lightbox({ items, index, setIndex, onClose, reduce }) {
   const item = items[index];
   const [failed, setFailed] = useState(false);
   const closeRef = useRef(null);
 
   const go = useCallback(
-    (d) => setIndex((i) => (i + d + items.length) % items.length),
+    (direction) => {
+      setIndex((current) => (current + direction + items.length) % items.length);
+    },
     [items.length, setIndex]
   );
 
-  useEffect(() => setFailed(false), [item.id]);
+  useEffect(() => {
+    setFailed(false);
+  }, [item.id]);
 
   useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowRight") go(1);
-      if (e.key === "ArrowLeft") go(-1);
-    };
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
+    const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement;
+
     document.body.style.overflow = "hidden";
     closeRef.current?.focus();
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+      }
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        go(1);
+      }
+
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        go(-1);
+      }
+
+      if (e.key === "Tab") {
+        const focusable = document.querySelectorAll(
+          '[data-gallery-lightbox] button:not([disabled])'
+        );
+
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+
     return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = previousOverflow;
+      previousFocus?.focus?.();
     };
   }, [go, onClose]);
 
   const navBtn =
-    "flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-[#D9BC70] hover:text-[#10291D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D9BC70]";
+    "flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all duration-300 hover:border-[#d4a22a] hover:bg-[#d4a22a] hover:text-[#1e4e6d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#e6b94a] sm:h-12 sm:w-12";
 
   return (
     <motion.div
+      data-gallery-lightbox
       role="dialog"
       aria-modal="true"
-      aria-label={item.title}
+      aria-label={`Gallery image: ${item.title}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-[1000] flex flex-col bg-[#050F0A]/95 p-5 backdrop-blur-md sm:p-8"
+      className="fixed inset-0 z-[1000] flex flex-col bg-[#071b2a]/95 p-4 backdrop-blur-xl sm:p-7"
     >
       {/* Top bar */}
-      <div className="flex items-center justify-between text-[#F4F1E8]" onClick={(e) => e.stopPropagation()}>
-        <p className="font-serif text-xl">
-          {pad(index + 1)}
-          <span className="text-[#F4F1E8]/40"> / {pad(items.length)}</span>
-        </p>
-        <button ref={closeRef} type="button" onClick={onClose} aria-label="Close" className={navBtn}>
+      <div
+        className="flex items-center justify-between"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div>
+          <p className="font-serif text-xl text-white sm:text-2xl">
+            {pad(index + 1)}
+            <span className="text-white/35"> / {pad(items.length)}</span>
+          </p>
+          <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#e6b94a]">
+            Renewable Mirror Gallery
+          </p>
+        </div>
+
+        <button
+          ref={closeRef}
+          type="button"
+          onClick={onClose}
+          aria-label="Close gallery"
+          className={navBtn}
+        >
           <X size={20} />
         </button>
       </div>
 
-      {/* Image */}
-      <div className="relative flex min-h-0 flex-1 items-center justify-center py-6" onClick={(e) => e.stopPropagation()}>
+      {/* Main image */}
+      <div
+        className="relative flex min-h-0 flex-1 items-center justify-center py-5"
+        onClick={(e) => e.stopPropagation()}
+      >
         <AnimatePresence mode="wait" initial={false}>
           <motion.figure
             key={item.id}
-            initial={reduce ? false : { opacity: 0, scale: 0.97 }}
+            initial={reduce ? false : { opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={reduce ? undefined : { opacity: 0, scale: 0.97 }}
+            exit={reduce ? undefined : { opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.3, ease: EASE }}
-            className="flex max-h-full w-full max-w-5xl flex-col items-center"
+            className="flex max-h-full w-full flex-col items-center"
           >
             {failed ? (
-              <div className="relative aspect-[4/3] w-full max-w-3xl overflow-hidden rounded-xl">
+              <div className="relative aspect-[4/3] w-full max-w-3xl overflow-hidden rounded-2xl">
                 <Placeholder />
               </div>
             ) : (
               <img
                 src={item.image}
                 alt={item.title}
+                draggable="false"
                 onError={() => setFailed(true)}
-                className="max-h-[68vh] w-auto max-w-full rounded-xl object-contain"
+                className="max-h-[68vh] max-w-full rounded-xl object-contain shadow-2xl"
               />
             )}
-            <figcaption className="mt-6 text-center">
-              <p className="text-sm font-medium text-[#D9BC70]">{item.category}</p>
-              <p className="mt-1 font-serif text-2xl text-[#F4F1E8]">{item.title}</p>
+
+            <figcaption className="mt-5 text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#e6b94a]">
+                {item.category}
+              </p>
+              <p className="mt-2 font-serif text-2xl text-white sm:text-3xl">
+                {item.title}
+              </p>
             </figcaption>
           </motion.figure>
         </AnimatePresence>
       </div>
 
-      {/* Prev / next */}
-      <div className="flex justify-center gap-4" onClick={(e) => e.stopPropagation()}>
-        <button type="button" onClick={() => go(-1)} aria-label="Previous photograph" className={navBtn}>
-          <ArrowLeft size={20} />
+      {/* Navigation */}
+      <div
+        className="flex items-center justify-center gap-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={() => go(-1)}
+          aria-label="Previous photograph"
+          className={navBtn}
+        >
+          <ArrowLeft size={19} />
         </button>
-        <button type="button" onClick={() => go(1)} aria-label="Next photograph" className={navBtn}>
-          <ArrowRight size={20} />
+
+        <span className="text-xs font-medium tracking-widest text-white/45">
+          {pad(index + 1)} / {pad(items.length)}
+        </span>
+
+        <button
+          type="button"
+          onClick={() => go(1)}
+          aria-label="Next photograph"
+          className={navBtn}
+        >
+          <ArrowRight size={19} />
         </button>
       </div>
     </motion.div>
   );
 }
 
+/* ---------------- GALLERY SECTION ---------------- */
+
 export default function GallerySection() {
   const reduce = useReducedMotion();
+
   const [activeCategory, setActiveCategory] = useState("All");
   const [openIndex, setOpenIndex] = useState(null);
 
   const filtered =
     activeCategory === "All"
       ? galleryImages
-      : galleryImages.filter((i) => i.category === activeCategory);
+      : galleryImages.filter((item) => item.category === activeCategory);
 
-  const countFor = (c) =>
-    c === "All" ? galleryImages.length : galleryImages.filter((i) => i.category === c).length;
+  const countFor = (category) =>
+    category === "All"
+      ? galleryImages.length
+      : galleryImages.filter((item) => item.category === category).length;
+
+  const closeLightbox = useCallback(() => {
+    setOpenIndex(null);
+  }, []);
 
   return (
-    <section id="gallery-images" className="bg-[#F7F8F5] px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
-      <div className="mx-auto max-w-7xl">
-        {/* Header */}
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: EASE }}
-          className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end"
-        >
-          <div>
-            <h2 className="text-4xl font-bold leading-[1.05] tracking-tight text-[#10291D] sm:text-5xl lg:text-6xl">
-              Explore Our
-              <span className="block font-serif font-medium text-[#A58B4D]">Gallery.</span>
-            </h2>
-            <p className="mt-5 max-w-xl text-base leading-8 text-[#5F6E63]">
-              A visual journey through the people, events, projects and
-              experiences shaping the renewable energy industry.
+    <>
+      <section
+        id="gallery-images"
+        className="relative overflow-hidden bg-white px-6 py-20 sm:px-10 lg:px-16 lg:py-24"
+      >
+        {/* Subtle section decoration */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-40 top-0 h-96 w-96 rounded-full bg-[#d4a22a]/[0.045] blur-[120px]"
+        />
+
+        <div className="relative mx-auto max-w-7xl">
+
+          {/* Header */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.75, ease: EASE }}
+            className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end lg:mb-12"
+          >
+            <div>
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-px w-9 bg-[#d4a22a]" />
+                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#bd9134] sm:text-xs">
+                  Moments & Memories
+                </p>
+              </div>
+
+              <h2 className="font-serif text-4xl font-medium leading-tight tracking-[-0.03em] text-[#1e4e6d] sm:text-5xl lg:text-[56px]">
+                Explore Our{" "}
+                <span className="text-[#bd9134]">Gallery.</span>
+              </h2>
+
+              <p className="mt-5 max-w-xl text-sm leading-7 text-[#647783] sm:text-base sm:leading-8">
+                A visual journey through the people, events, projects and
+                experiences shaping the renewable energy industry.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 text-sm font-medium text-[#647783]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1e4e6d]/[0.07] text-[#bd9134]">
+                <Images size={19} />
+              </span>
+              <span>
+                <strong className="text-[#1e4e6d]">
+                  {pad(filtered.length)}
+                </strong>{" "}
+                photographs
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Category filters */}
+          <div className="mb-9 flex flex-wrap items-center gap-x-7 gap-y-3 border-b border-[#1e4e6d]/10">
+            {categories.map((category) => {
+              const active = activeCategory === category;
+
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => setActiveCategory(category)}
+                  className={`relative pb-4 text-sm font-semibold transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d4a22a] ${
+                    active
+                      ? "text-[#1e4e6d]"
+                      : "text-[#71818a] hover:text-[#1e4e6d]"
+                  }`}
+                >
+                  {category}
+
+                  <sup className="ml-1.5 text-[10px] font-medium text-[#bd9134]">
+                    {pad(countFor(category))}
+                  </sup>
+
+                  {active && (
+                    <motion.span
+                      layoutId="gallery-tab"
+                      transition={{
+                        duration: reduce ? 0 : 0.35,
+                        ease: EASE,
+                      }}
+                      className="absolute inset-x-0 -bottom-px h-[2px] bg-[#d4a22a]"
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Gallery mosaic */}
+          <motion.div
+            layout={!reduce}
+            className="grid auto-rows-[15rem] grid-cols-1 gap-4 [grid-auto-flow:dense] sm:grid-cols-2 lg:auto-rows-[14rem] lg:grid-cols-4 lg:gap-5"
+          >
+            <AnimatePresence mode="popLayout">
+              {filtered.map((item, index) => (
+                <Tile
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  onOpen={setOpenIndex}
+                  reduce={reduce}
+                />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Empty state */}
+          {filtered.length === 0 && (
+            <div className="py-20 text-center">
+              <Camera size={36} className="mx-auto text-[#bd9134]" />
+
+              <p className="mt-4 font-serif text-xl text-[#1e4e6d]">
+                No photographs found
+              </p>
+
+              <p className="mt-2 text-sm text-[#647783]">
+                Try selecting another category.
+              </p>
+            </div>
+          )}
+
+          {/* Bottom note */}
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[#1e4e6d]/10 pt-6">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#71818a] sm:text-xs">
+              Capturing progress. Sharing perspectives.
+            </p>
+
+            <p className="text-xs font-medium text-[#bd9134]">
+              Renewable Mirror
             </p>
           </div>
-
-          <p className="flex items-center gap-3 text-sm font-medium text-[#5F6E63]">
-            <Images size={19} className="text-[#A58B4D]" />
-            {pad(filtered.length)} photographs
-          </p>
-        </motion.div>
-
-        {/* Filters */}
-        <div role="tablist" aria-label="Filter gallery" className="mb-10 flex flex-wrap gap-x-8 gap-y-3 border-b border-[#E3E8E0]">
-          {categories.map((c) => {
-            const active = activeCategory === c;
-            return (
-              <button
-                key={c}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                onClick={() => setActiveCategory(c)}
-                className={`relative pb-4 text-base font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#A58B4D] ${
-                  active ? "text-[#10291D]" : "text-[#5F6E63] hover:text-[#10291D]"
-                }`}
-              >
-                {c}
-                <sup className="ml-1.5 text-xs font-medium text-[#A58B4D]">{pad(countFor(c))}</sup>
-                {active && (
-                  <motion.span
-                    layoutId="gallery-tab"
-                    transition={{ duration: reduce ? 0 : 0.4, ease: EASE }}
-                    className="absolute inset-x-0 -bottom-px h-0.5 bg-[#A58B4D]"
-                  />
-                )}
-              </button>
-            );
-          })}
         </div>
+      </section>
 
-        {/* Mosaic */}
-        <div className="grid auto-rows-[16rem] grid-cols-1 gap-4 [grid-auto-flow:dense] sm:grid-cols-2 lg:auto-rows-[15rem] lg:grid-cols-4">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((item, index) => (
-              <Tile key={item.id} item={item} index={index} onOpen={setOpenIndex} reduce={reduce} />
-            ))}
-          </AnimatePresence>
-        </div>
-
-        {filtered.length === 0 && (
-          <div className="py-20 text-center">
-            <Camera size={35} className="mx-auto text-[#A58B4D]" />
-            <p className="mt-4 font-serif text-xl text-[#10291D]">No photographs found</p>
-            <p className="mt-2 text-sm text-[#5F6E63]">Try selecting another category.</p>
-          </div>
-        )}
-      </div>
-
+      {/* Lightbox */}
       <AnimatePresence>
-        {openIndex !== null && (
+        {openIndex !== null && filtered[openIndex] && (
           <Lightbox
             items={filtered}
             index={openIndex}
             setIndex={setOpenIndex}
-            onClose={() => setOpenIndex(null)}
+            onClose={closeLightbox}
             reduce={reduce}
           />
         )}
       </AnimatePresence>
-    </section>
+    </>
   );
 }

@@ -1,61 +1,80 @@
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function CoverStoryCTA() {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <section className="bg-white px-6 pb-20 sm:px-10 lg:px-16">
+    <section className="bg-white px-5 pb-14 pt-2 sm:px-8 lg:px-16">
 
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-        className="mx-auto max-w-7xl rounded-xl border border-[#D9BC70]/30 bg-[#09251A] px-8 py-12 sm:px-12 sm:py-14 lg:px-16"
+        transition={{ duration: 0.6 }}
+        className="relative mx-auto max-w-6xl overflow-hidden rounded-xl border border-[#F5A000]/20 bg-[#111827] px-6 py-9 text-center sm:px-10 sm:py-11"
       >
-        <div className="flex flex-col justify-between gap-9 lg:flex-row lg:items-center">
+        {/* SUBTLE BACKGROUND DETAIL */}
+        <div className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full border border-[#F5A000]/[0.08]" />
+        <div className="pointer-events-none absolute -bottom-28 -left-16 h-64 w-64 rounded-full border border-white/[0.05]" />
 
-          {/* CONTENT */}
-          <div className="max-w-2xl">
-            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#D9BC70]">
-              Tell Your Story
+        <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center">
+
+          {/* LABEL */}
+          <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#E6B94A]">
+            Tell Your Story
+          </span>
+
+          {/* HEADING */}
+          <h2 className="mt-3 text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl lg:text-[34px]">
+            Have a story{" "}
+            <span className="text-[#F5A000]">
+              worth featuring?
             </span>
+          </h2>
 
-            <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Have a story
-              <span className="block text-[#D9BC70]">
-                worth featuring?
-              </span>
-            </h2>
-
-            <p className="mt-5 max-w-xl text-sm leading-7 text-white/65">
-              Share your ideas, achievements and innovations
-              with Renewable Mirror. Let's bring important
-              industry stories to a wider audience.
-            </p>
-          </div>
+          {/* DESCRIPTION */}
+          <p className="mt-3 max-w-xl text-xs leading-6 text-[#D1D5DB] sm:text-[13px]">
+            Share your ideas, achievements and innovations
+            with Renewable Mirror. Let's bring important
+            industry stories to a wider audience.
+          </p>
 
           {/* BUTTONS */}
-          <div className="flex shrink-0 flex-wrap items-center gap-3">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
 
             <Link
               to="/contact"
-              className="inline-flex items-center gap-3 rounded-md bg-[#D9BC70] px-6 py-4 text-xs font-bold text-[#09251A] transition-all duration-300 hover:bg-white"
+              className="group inline-flex items-center gap-2 rounded-md bg-[#F5A000] px-5 py-3 text-[10px] font-bold text-[#111827] transition-all duration-300 hover:bg-[#E6B94A]"
             >
               Pitch Your Story
-              <ArrowUpRight size={17} />
+              <ArrowUpRight
+                size={14}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
             </Link>
 
             <a
               href="mailto:info@renewablemirror.com"
-              className="inline-flex items-center gap-3 rounded-md border border-white/30 px-6 py-4 text-xs font-bold text-white transition-all duration-300 hover:border-[#D9BC70] hover:text-[#D9BC70]"
+              className="inline-flex items-center gap-2 rounded-md border border-white/20 px-5 py-3 text-[10px] font-bold text-white transition-all duration-300 hover:border-[#F5A000] hover:text-[#F5A000]"
             >
-              <Mail size={16} />
+              <Mail size={13} />
               Email Us
             </a>
 
           </div>
+
+          {/* BOTTOM CAPTION */}
+          <div className="mt-7 flex items-center gap-3">
+            <span className="h-px w-7 bg-[#F5A000]/50" />
+            <span className="text-[8px] font-semibold uppercase tracking-[0.2em] text-white/40">
+              Renewable Mirror — Industry Stories
+            </span>
+            <span className="h-px w-7 bg-[#F5A000]/50" />
+          </div>
+
         </div>
       </motion.div>
 

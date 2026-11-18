@@ -92,13 +92,23 @@ export default function CommentSection({ articleId }) {
           />
         </div>
 
+
         <button
           type="submit"
-          className="inline-flex items-center gap-2 bg-[#10291D] px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-[#A58B4D]"
+          className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#10291D] px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#A58B4D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A58B4D] focus-visible:ring-offset-2"
         >
           Post Comment
-          <Send size={14} />
+
+          <Send
+            size={15}
+            className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+          />
         </button>
+
+
+
+        
+
       </form>
 
       <div className="mt-8 space-y-5">

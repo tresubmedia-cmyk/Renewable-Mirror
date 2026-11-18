@@ -1,13 +1,11 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import {
-  ArrowUpRight,
   ArrowRight,
   Instagram,
   Linkedin,
   Facebook,
   Youtube,
-  Mail,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -57,8 +55,7 @@ export default function Footer() {
   const reduce = useReducedMotion();
 
   return (
-    <footer className="bg-[#0B1912] text-white">
-
+    <footer className="bg-[#111827] text-white">
       <div className="mx-auto max-w-[1440px] px-6 sm:px-10 lg:px-14">
 
         {/* BRAND AND NAVIGATION */}
@@ -79,7 +76,7 @@ export default function Footer() {
               />
             </Link>
 
-            <p className="mt-7 max-w-[330px] text-[13px] leading-[2] text-[#A8B5AA]">
+            <p className="mt-7 max-w-[330px] text-[13px] leading-[2] text-[#D1D5DB]">
               An outlook of the renewable and green energy industry.
               Bringing you the latest news, industry developments,
               exclusive interviews and insights from across the world.
@@ -88,6 +85,7 @@ export default function Footer() {
             <div className="mt-7 flex items-center gap-2">
               {socialLinks.filter((item) => item.url).map((item) => {
                 const Icon = item.icon;
+
                 return (
                   <a
                     key={item.name}
@@ -95,7 +93,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={item.name}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#B5C0B7] transition-all duration-300 hover:border-[#D8BD76] hover:bg-[#D8BD76] hover:text-[#0B1912]"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#D1D5DB] transition-all duration-300 hover:border-[#F5A000] hover:bg-[#F5A000] hover:text-[#111827]"
                   >
                     <Icon size={15} />
                   </a>
@@ -117,7 +115,7 @@ export default function Footer() {
                 ease: EASE,
               }}
             >
-              <h3 className="mb-7 text-[11px] font-extrabold uppercase tracking-[0.19em] text-[#D8BD76]">
+              <h3 className="mb-7 text-[11px] font-extrabold uppercase tracking-[0.19em] text-[#E6B94A]">
                 {group.title}
               </h3>
 
@@ -126,9 +124,9 @@ export default function Footer() {
                   <li key={label}>
                     <Link
                       to={path}
-                      className="group inline-flex items-center gap-2 text-[13px] text-[#A8B5AA] transition-colors duration-300 hover:text-white"
+                      className="group inline-flex items-center gap-2 text-[13px] text-[#D1D5DB] transition-colors duration-300 hover:text-white"
                     >
-                      <span className="h-px w-0 bg-[#D8BD76] transition-all duration-300 group-hover:w-4" />
+                      <span className="h-px w-0 bg-[#F5A000] transition-all duration-300 group-hover:w-4" />
                       {label}
                     </Link>
                   </li>
@@ -139,33 +137,31 @@ export default function Footer() {
 
         </div>
 
-    
-
         {/* BOTTOM BAR */}
         <div className="flex flex-col justify-between gap-4 py-7 sm:flex-row sm:items-center">
 
-          <p className="text-[11px] text-[#829187]">
+          <p className="text-[11px] text-[#9CA3AF]">
             © {new Date().getFullYear()} Renewable Mirror. All rights reserved.
           </p>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link
               to="/privacy-policy"
-              className="text-[11px] text-[#829187] transition-colors hover:text-[#D8BD76]"
+              className="text-[11px] text-[#9CA3AF] transition-colors hover:text-[#E6B94A]"
             >
               Privacy Policy
             </Link>
 
             <Link
               to="/terms-and-conditions"
-              className="text-[11px] text-[#829187] transition-colors hover:text-[#D8BD76]"
+              className="text-[11px] text-[#9CA3AF] transition-colors hover:text-[#E6B94A]"
             >
               Terms & Conditions
             </Link>
 
             <Link
               to="/contact"
-              className="inline-flex items-center gap-1 text-[11px] text-[#829187] transition-colors hover:text-[#D8BD76]"
+              className="inline-flex items-center gap-1 text-[11px] text-[#9CA3AF] transition-colors hover:text-[#E6B94A]"
             >
               Contact
               <ArrowRight size={12} />
